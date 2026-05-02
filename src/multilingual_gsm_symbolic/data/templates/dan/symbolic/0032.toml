@@ -27,19 +27,19 @@ question_annotated = """
 - brokerage_fee < 100
 - transfer_fee < 100
 - price < budget
-- price * (1 + brokerage_fee/100 + transfer_fee/100) > budget + 1
+- price + price*brokerage_fee/100 + price*transfer_fee/100 > budget + 1
 - is_int(price * brokerage_fee / 100)
 - is_int(price * transfer_fee / 100)
 
-#answer: int(price * (1 + brokerage_fee/100 + transfer_fee/100) - budget)
+#answer: int(price + price*brokerage_fee/100 + price*transfer_fee/100 - budget)
 """
 
 answer_annotated = """
 Mæglergebyret er {price} kr*{brokerage_fee}/100 = <<{price}*{brokerage_fee}/100={int(price*brokerage_fee/100)}>>{int(price*brokerage_fee/100)} kr.
 Overførselsgebyret er {price} kr*{transfer_fee}/100 = <<{price}*{transfer_fee}/100={int(price*transfer_fee/100)}>>{int(price*transfer_fee/100)} kr.
-Den totale pris på {property_type_definite} er {price} kr + {int(price*brokerage_fee/100)} kr + {int(price*transfer_fee/100)} kr = {int(price * (1 + brokerage_fee/100 + transfer_fee/100))} kr.
-Så det er {int(price * (1 + brokerage_fee/100 + transfer_fee/100))} kr - {budget} kr = <<{int(price * (1 + brokerage_fee/100 + transfer_fee/100))}-{budget}={int(price * (1 + brokerage_fee/100 + transfer_fee/100) - budget)}>>{int(price * (1 + brokerage_fee/100 + transfer_fee/100) - budget)} kr mere end {name_genitive} budget.
-#### {int(price * (1 + brokerage_fee/100 + transfer_fee/100) - budget)}
+Den totale pris på {property_type_definite} er {price} kr + {int(price*brokerage_fee/100)} kr + {int(price*transfer_fee/100)} kr = {int(price + price*brokerage_fee/100 + price*transfer_fee/100)} kr.
+Så det er {int(price + price*brokerage_fee/100 + price*transfer_fee/100)} kr - {budget} kr = <<{int(price + price*brokerage_fee/100 + price*transfer_fee/100)}-{budget}={int(price + price*brokerage_fee/100 + price*transfer_fee/100 - budget)}>>{int(price + price*brokerage_fee/100 + price*transfer_fee/100 - budget)} kr mere end {name_genitive} budget.
+#### {int(price + price*brokerage_fee/100 + price*transfer_fee/100 - budget)}
 """
 
 creation = "machine-translated from English, localized and validated by humans, computationally validated"
