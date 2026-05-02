@@ -196,6 +196,28 @@ def _extract_final_answer(answer: str) -> float:
     return float(answer.split("####")[-1].strip())
 
 
+def test_example_32_compound_formula_floating_point():
+    """Regression: price * (1 + bfe/100 + tfe/100) gives 3438499.9999999995
+    for price=2990000, bfe=3, tfe=12 due to float imprecision in 3/100 + 12/100.
+    int() then truncates to 438499 instead of 438500.
+    Fix: compute each fee separately (price*bfe/100 + price*tfe/100) which is exact
+    because is_int conditions guarantee integer fees."""
+    template = AnnotatedQuestion.from_toml(
+        pathlib.Path(__file__).parent.parent
+        / "src/multilingual_gsm_symbolic/data/templates/dan/symbolic/0032.toml"
+    )
+    questions = template.generate_questions(
+        n=1,
+        fixed={"price": 2990000, "budget": 3000000, "brokerage_fee": 3, "transfer_fee": 12},
+        verbose=False,
+    )
+    assert len(questions) == 1
+    final_str = questions[0].answer.split("####")[-1].strip()
+    assert final_str == "438500", (
+        f"Expected '438500' but got {final_str!r}; full answer:\n{questions[0].answer}"
+    )
+
+
 def test_example_30_floating_point_answer_is_clean_integer():
     """Regression: initial_amount=130.2, quantity=24, unit_price=1.3 gives
     int(130.2 - 24*1.3) = int(98.99999999999999) = 98 (wrong) or shows

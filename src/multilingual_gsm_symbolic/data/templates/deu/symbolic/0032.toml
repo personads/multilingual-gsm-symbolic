@@ -27,19 +27,19 @@ question_annotated = """
 - brokerage_fee < 100
 - transfer_fee < 100
 - price < budget
-- price * (1 + brokerage_fee/100 + transfer_fee/100) > budget + 1
+- price + price*brokerage_fee/100 + price*transfer_fee/100 > budget + 1
 - is_int(price * brokerage_fee / 100)
 - is_int(price * transfer_fee / 100)
 
-#answer: int(price * (1 + brokerage_fee/100 + transfer_fee/100) - budget)
+#answer: int(price + price*brokerage_fee/100 + price*transfer_fee/100 - budget)
 """
 
 answer_annotated = """
 Die Maklergebühr beträgt {price} kr*{brokerage_fee}/100 = <<{price}*{brokerage_fee}/100={int(price*brokerage_fee/100)}>>{int(price*brokerage_fee/100)} kr.
 Die Übertragungsgebühr beträgt {price} kr*{transfer_fee}/100 = <<{price}*{transfer_fee}/100={int(price*transfer_fee/100)}>>{int(price*transfer_fee/100)} kr.
-Der Gesamtpreis des {property_type_definite} ist {price} kr + {int(price*brokerage_fee/100)} kr + {int(price*transfer_fee/100)} kr = {int(price * (1 + brokerage_fee/100 + transfer_fee/100))} kr.
-Also sind das {int(price * (1 + brokerage_fee/100 + transfer_fee/100))} kr - {budget} kr = <<{int(price * (1 + brokerage_fee/100 + transfer_fee/100))}-{budget}={int(price * (1 + brokerage_fee/100 + transfer_fee/100) - budget)}>>{int(price * (1 + brokerage_fee/100 + transfer_fee/100) - budget)} kr mehr als das Budget von {name}.
-#### {int(price * (1 + brokerage_fee/100 + transfer_fee/100) - budget)}
+Der Gesamtpreis des {property_type_definite} ist {price} kr + {int(price*brokerage_fee/100)} kr + {int(price*transfer_fee/100)} kr = {int(price + price*brokerage_fee/100 + price*transfer_fee/100)} kr.
+Also sind das {int(price + price*brokerage_fee/100 + price*transfer_fee/100)} kr - {budget} kr = <<{int(price + price*brokerage_fee/100 + price*transfer_fee/100)}-{budget}={int(price + price*brokerage_fee/100 + price*transfer_fee/100 - budget)}>>{int(price + price*brokerage_fee/100 + price*transfer_fee/100 - budget)} kr mehr als das Budget von {name}.
+#### {int(price + price*brokerage_fee/100 + price*transfer_fee/100 - budget)}
 """
 
 creation = "machine-translated from Danish using gpt-5.4, based on Danish templates; computationally validated"
