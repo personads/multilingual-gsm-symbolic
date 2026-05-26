@@ -1,9 +1,9 @@
-question = "David á 85,5 kr og vill kaupa 16 bolta úr kassa í byggingavöruversluninni. Hver bolti kostar 0,2 kr. Hversu mikið fé á David eftir eftir að hafa greitt fyrir boltana?"
+question = "David á 130,2 kr og vill kaupa 16 bolta úr kassa í byggingavöruversluninni. Hver bolti kostar 0,2 kr. Hversu mikið fé á David eftir eftir að hafa greitt fyrir boltana?"
 
 answer = """
 David greiddi 16*0,2 kr = <<16*0,2=3,2>>3,2 kr fyrir boltana.
-David á 85,5 kr - 3,2 kr = 82,3 kr eftir.
-#### 82,3
+David á 130,2 kr - 3,2 kr = 127 kr eftir.
+#### 127
 """
 
 id_orig = 873
@@ -11,7 +11,7 @@ id_orig = 873
 id_shuffled = 30
 
 question_annotated = """
-{name,David} á {initial_amount,85.5} {cur,kr} og vill kaupa {quantity,16} {item_plural,bolta} úr kassa í {store_type,byggingavöruversluninni}. Hver {item,bolti} kostar {unit_price,0.2} {cur,kr}. Hversu mikið fé á {name,David} eftir eftir að hafa greitt fyrir {item_plural,bolta}na?
+{name,David} á {initial_amount,130.2} {cur,kr} og vill kaupa {quantity,16} {item_plural,bolta} úr kassa í {store_type,byggingavöruversluninni}. Hver {item,bolti} kostar {unit_price,0.2} {cur,kr}. Hversu mikið fé á {name,David} eftir eftir að hafa greitt fyrir {item_plural,bolta}na?
 
 #init:
 - name = sample(names)
