@@ -29,6 +29,6 @@ answer_annotated = """
 #### { int((sides_val-target)/sides_val * 100) - 25}
 """
 
-creation = "rus text machine-translated from Danish, localized and validated by humans, computationally validated"
+creation = "Machine-translated from Danish using gpt-5.4, localized and validated by a native speaker, and computationally validated."
 
 language = "rus"
