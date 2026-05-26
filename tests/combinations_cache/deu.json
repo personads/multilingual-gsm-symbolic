@@ -200,11 +200,6 @@
     "count": 100
   },
   {
-    "id": 40,
-    "question_annotated": "{name} fuhr in den Urlaub an die Küste. Ihre Eltern gaben ihr {total,75} kr, damit sie kaufen konnte, was sie wollte. Im Kiosk wurden Bonbons angeboten mit „Kaufe {n1,500} Gramm für {p1,20} kr, erhalte {n2,500} Gramm zum {discount,1/2} Preis.“ Sie nahm {n12,1100} Gramm. Sie kaufte auch eine gemischte Tüte mit Muschelschalen, die {p2,17} kr kostete, und {n3,4} Magnete, die {p3,2} kr pro Stück kosteten. Wie viel Geld hat {name} übrig?\n\n#init:\n- $total = range(30, 100, 15)\n- $n1 = range(200, 651, 150)\n- $n2 = range(200, 651, 150)\n- $n12 = range(650, 1301, 150)\n- $n3 = range(4, 15, 2)\n- $p1 = range(20, 55, 5)\n- $p2 = range(17, 40, 4)\n- $p3 = range(2, 35, 3)\n- name = sample(names_female)\n- $discount = sample(fractions)\n\n#conditions:\n- n2 <= n1\n- n12 - n1 - n2 > 0\n- is_int(n1 * p1 + n2 * (1-discount) * p1 + (n12 - n1 - n2) * p1 + p2 + n3 * p3)\n- p1 + n2/n1 * (1-discount) * p1 + (n12 - n1 - n2)/n1 * p1 + p2 + n3 * p3 < total\n- total - int(p1 + (n2/n1)*discount*p1 + (n12 - n1 - n2)/n1*p1+p2+n3*p3) > 0\n\n#answer: total-int(p1 + (n2/n1)*discount*p1 + (n12 - n1 - n2)/n1*p1+p2+n3*p3)",
-    "count": 100
-  },
-  {
     "id": 41,
     "question_annotated": "Ein {structure,turm} besteht aus {n1,4} {color1,blauen} {obj,blöcken}, {mult_txt,zweimal} so vielen {color2,gelben} {obj,blöcken} und einer unbekannten Anzahl {color3,roten} {obj,blöcken}. Wenn es insgesamt {total,32} {obj,blöcke} in {structure_definite,dem turm} gibt, wie viele {color3,roten} {obj,blöcke} gibt es dann?\n\n#init:\n- structure, structure_definite = sample([(\"Turm\", \"dem Turm\"), (\"Gebäude\", \"dem Gebäude\"), (\"Pyramide\", \"der Pyramide\"), (\"Stapel\", \"dem Stapel\")])\n- obj = sample([\"Ziegelstein\", \"Ziegel\", \"Fliese\"])\n- color1, color2, color3 = sample([\"grønne\", \"lilla\", \"orange\", \"pink\", \"hvide\", \"sorte\"], 3)\n- $n1 = range(2, 10)\n- mult_txt, mult_var = sample(multi_times)\n- $total = range(20, 50)\n\n#conditions:\n- total > n1 + mult_var * n1\n\n#answer: total - n1 - mult_var * n1",
     "count": 100
