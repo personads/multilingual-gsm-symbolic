@@ -203,8 +203,7 @@ def test_example_32_compound_formula_floating_point():
     Fix: compute each fee separately (price*bfe/100 + price*tfe/100) which is exact
     because is_int conditions guarantee integer fees."""
     template = AnnotatedQuestion.from_toml(
-        pathlib.Path(__file__).parent.parent
-        / "src/multilingual_gsm_symbolic/data/templates/dan/symbolic/0032.toml"
+        pathlib.Path(__file__).parent.parent / "src/multilingual_gsm_symbolic/data/templates/dan/symbolic/0032.toml"
     )
     questions = template.generate_questions(
         n=1,
@@ -213,9 +212,7 @@ def test_example_32_compound_formula_floating_point():
     )
     assert len(questions) == 1
     final_str = questions[0].answer.split("####")[-1].strip()
-    assert final_str == "438500", (
-        f"Expected '438500' but got {final_str!r}; full answer:\n{questions[0].answer}"
-    )
+    assert final_str == "438500", f"Expected '438500' but got {final_str!r}; full answer:\n{questions[0].answer}"
 
 
 def test_example_30_floating_point_answer_is_clean_integer():

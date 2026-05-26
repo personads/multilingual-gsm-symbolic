@@ -76,7 +76,7 @@
   },
   {
     "id": 15,
-    "question_annotated": "{name1, Julie}s Hund hat {n1, 8} Welpen, von denen {k1,3} Flecken haben. {name2, Bo}s Hund hat {n2,12} Welpen, von denen {k2,4} Flecken haben. Wie viel Prozent aller Welpen haben Flecken?\n\n#init:\n- name1, name2 = sample(names, 2)\n- $n1 = range(5, 16)\n- $n2 = range(4, 20)\n- $k1 = range(2, 12)\n- $k2 = range(2, 12)\n\n#conditions:\n- divides(n1 + n2, k1 + k2)\n- is_int(100 * (k1+k2) / (n1+n2))\n\n#answer: int(100 * (k1+k2) / (n1+n2))",
+    "question_annotated": "{name1, Julie}s Hund hat {n1, 8} Welpen, von denen {k1,3} Flecken haben. {name2, Bo}s Hund hat {n2,12} Welpen, von denen {k2,4} Flecken haben. Wie viel Prozent aller Welpen haben Flecken?\n\n#init:\n- name1, name2 = sample(names, 2)\n- $n1 = range(5, 16)\n- $n2 = range(4, 20)\n- $k1 = range(2, 12)\n- $k2 = range(2, 12)\n\n#conditions:\n- k1 < n1\n- k2 < n2\n- divides(n1 + n2, k1 + k2)\n- is_int(100 * (k1+k2) / (n1+n2))\n\n#answer: int(100 * (k1+k2) / (n1+n2))",
     "count": 100
   },
   {
