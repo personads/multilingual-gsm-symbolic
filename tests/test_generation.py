@@ -257,3 +257,64 @@ def test_multiple_questions_are_not_all_identical():
     questions = t.generate_questions(n=20, seed=0, verbose=False)
     unique = {(q.question, q.answer) for q in questions}
     assert len(unique) > 1, "All 20 generated questions were identical"
+
+
+def test_number_agreement_derived_variable():
+    """Regression for issue #15: a word form that must agree with a sampled number
+    requires a derived init variable.
+
+    'coin_word = plural(n, "coin", "coins")' is a derived variable: its RHS references
+    another init variable (n), so it is evaluated after n is assigned. Before the fix it
+    was classified as unconstrained and evaluated without 'n' in scope, raising
+    NameError: name 'n' is not defined.
+
+    This is the English analogue of the Ukrainian case where a noun/verb form depends on the
+    grammatical number (e.g. 1 рік / 2 роки / 5 років).
+    """
+    template = AnnotatedQuestion.from_toml(
+        pathlib.Path(__file__).parent / "test_templates" / "eng_number_agreement.toml"
+    )
+    # n == 1 must produce the singular form, n > 1 the plural form.
+    singular = template.generate_questions(n=1, fixed={"n": 1}, verbose=False)[0]
+    assert "1 coin." in singular.question and "1 coins" not in singular.question
+
+    plural_q = template.generate_questions(n=1, fixed={"n": 5}, verbose=False)[0]
+    assert "5 coins" in plural_q.question
+
+
+@pytest.mark.parametrize(
+    "n,expected",
+    [(1, "coin"), (2, "coins"), (5, "coins"), (0, "coins")],
+)
+def test_plural_two_forms_english(n, expected):
+    from multilingual_gsm_symbolic.gsm_parser import plural
+
+    assert plural(n, "coin", "coins") == expected
+
+
+@pytest.mark.parametrize(
+    "n,expected",
+    [
+        (1, "рік"),
+        (2, "роки"),
+        (4, "роки"),
+        (5, "років"),
+        (11, "років"),
+        (12, "років"),
+        (21, "рік"),
+        (22, "роки"),
+        (25, "років"),
+        (100, "років"),
+    ],
+)
+def test_plural_three_forms_east_slavic(n, expected):
+    from multilingual_gsm_symbolic.gsm_parser import plural
+
+    assert plural(n, "рік", "роки", "років") == expected
+
+
+def test_plural_invalid_form_count_raises():
+    from multilingual_gsm_symbolic.gsm_parser import plural
+
+    with pytest.raises(ValueError, match="2 .* or 3 .* forms"):
+        plural(1, "only-one")

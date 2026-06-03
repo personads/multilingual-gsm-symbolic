@@ -179,6 +179,7 @@ def _build_eval_context(rng: Random, replacements: dict[str, Any]) -> dict[str, 
         "range_str": _make_range_str(rng),
         "arange": _make_arange_sample(rng),
         "Fraction": frac_format,
+        "plural": plural,
         **replacements,
     }
 
@@ -259,6 +260,37 @@ def strip_elements(lst: list[str]) -> list[str]:
     return [s.strip() for s in lst]
 
 
+def plural(n: float, *forms: str) -> str:
+    """Select the grammatical form that agrees with the number ``n``.
+
+    Pass the forms positionally; the number of forms selects the rule:
+
+    - 2 forms — singular / plural, e.g. English: ``plural(n, "coin", "coins")``
+      returns the first form when ``|n| == 1`` and the second otherwise.
+    - 3 forms — one / few / many, e.g. East Slavic: ``plural(n, "рік", "роки", "років")``
+      applies the Russian/Ukrainian rule based on ``n % 10`` and ``n % 100``.
+
+    Args:
+        n: The number the form must agree with.
+        forms: Either 2 (singular, plural) or 3 (one, few, many) word forms.
+
+    Returns:
+        The form agreeing with ``n``.
+    """
+    if len(forms) == 2:
+        one, other = forms
+        return one if abs(n) == 1 else other
+    if len(forms) == 3:
+        one, few, many = forms
+        m = abs(int(n))
+        if m % 10 == 1 and m % 100 != 11:
+            return one
+        if m % 10 in (2, 3, 4) and m % 100 not in (12, 13, 14):
+            return few
+        return many
+    raise ValueError(f"plural() expects 2 (singular/plural) or 3 (one/few/many) forms, got {len(forms)}")
+
+
 # Non-random helpers shared by both eval contexts and combination enumeration.
 _BASE_HELPERS: dict[str, Any] = {
     "is_int": is_int,
@@ -270,6 +302,7 @@ _BASE_HELPERS: dict[str, Any] = {
     "len": len,
     "list": list,
     "Fraction": frac_format,
+    "plural": plural,
 }
 
 # Legacy alias used by condition evaluation and answer formatting (no sampling needed there).
@@ -292,6 +325,7 @@ COMBINATION_HELPERS: dict[str, Any] = {
     "is_int": is_int,
     "divides": divides,
     "Fraction": frac_format,
+    "plural": plural,
 }
 
 # Pre-compiled regex patterns used in hot paths
@@ -409,6 +443,15 @@ class AnnotatedQuestion:
     language: str = "eng"
     creation: str = ""
 
+    def __post_init__(self) -> None:
+        constrained_derived = [v for v in self.derived_variables if is_variable_mentioned(v, self.conditions)]
+        if constrained_derived:
+            raise ValueError(
+                f"Template {self.id_shuffled}: derived variable(s) {constrained_derived} are referenced in "
+                "#conditions. Derived variables are computed after constraint sampling and cannot be constrained. "
+                "Inline the expression in the condition instead (e.g. write 'a + b < 10' rather than 'total < 10')."
+            )
+
     @classmethod
     def from_json(cls, filepath: Path) -> Self:
         """Load an AnnotatedQuestion from a JSON template file.
@@ -489,12 +532,39 @@ class AnnotatedQuestion:
         return [v for v in self.variables if is_variable_mentioned(v, self.conditions)]
 
     @cached_property
+    def derived_lines(self) -> list[str]:
+        """Init lines whose right-hand side references another init variable.
+
+        These cannot be sampled independently: their value is determined by other
+        variables (e.g. a noun form agreeing with a number, or `total = a + b`), so
+        they are evaluated last, after all other variables have been assigned.
+        """
+        init_vars = set(self.variables)
+        return [line for line in self.init if "=" in line and (self._init_line_rhs_names(line) & init_vars)]
+
+    @cached_property
+    def derived_variables(self) -> list[str]:
+        result: list[str] = []
+        for line in self.derived_lines:
+            result.extend(self._extract_variables_from_init_line(line))
+        return result
+
+    @cached_property
     def unconstrained_lines(self) -> list[str]:
-        return [line for line in self.init if not self._is_init_line_constrained(line, self.constrained_variables)]
+        return [
+            line
+            for line in self.init
+            if line not in self.derived_lines
+            and not self._is_init_line_constrained(line, self.constrained_variables)
+        ]
 
     @cached_property
     def constrained_lines(self) -> list[str]:
-        return [line for line in self.init if self._is_init_line_constrained(line, self.constrained_variables)]
+        return [
+            line
+            for line in self.init
+            if line not in self.derived_lines and self._is_init_line_constrained(line, self.constrained_variables)
+        ]
 
     @cached_property
     def _answer_expr_asts(self) -> dict[str, ast.expr]:
@@ -568,6 +638,15 @@ class AnnotatedQuestion:
 
     def _extract_variables_from_init_line(self, line: str) -> list[str]:
         return strip_elements(line.split("=")[0].strip("- ").strip("$").split(","))
+
+    def _init_line_rhs_names(self, line: str) -> set[str]:
+        """Return the names referenced on the right-hand side of an init line.
+
+        Includes both variable references and function names; callers intersect with
+        the set of init variables to find genuine cross-variable dependencies.
+        """
+        definition_part = line.split("=", 1)[1].strip()
+        return {node.id for node in ast.walk(_parse_expr(definition_part)) if isinstance(node, ast.Name)}
 
     def _is_init_line_constrained(self, line: str, constrained_variables: list[str]) -> bool:
         return any(v in self._extract_variables_from_init_line(line) for v in constrained_variables)
@@ -702,10 +781,11 @@ class AnnotatedQuestion:
     ) -> list[list[dict]]:
         """Pre-enumerate all possible assignments for each unconstrained init line."""
         constrained = set(self.constrained_variables)
+        derived = set(self.derived_variables)
         env = COMBINATION_HELPERS | replacements
         choices_per_line: list[list[dict]] = []
         for variables, ast_node in self._init_line_asts:
-            if any(v in constrained for v in variables):
+            if any(v in constrained or v in derived for v in variables):
                 continue
             possible_values = _eval_node(ast_node, env)
             if len(variables) == 1:
@@ -828,6 +908,8 @@ class AnnotatedQuestion:
         collected_assignments = constrained_assignments | {
             k: v for d in unconstrained_assignments for k, v in d.items()
         }
+        if self.derived_lines:
+            collected_assignments |= self._evaluate_derived_lines(collected_assignments, replacements, rng)
         logger.debug(f"All assignments: {collected_assignments}")
         formatted_question = self.format_question(collected_assignments)
         logger.info(f"Formatted question: {formatted_question}")
@@ -848,6 +930,34 @@ class AnnotatedQuestion:
             logger.warning(f"Incompatible variables {variables} and values {values} in template {self.id_shuffled}.")
             return {}
         return dict(zip(variables, values))
+
+    def _evaluate_derived_lines(
+        self, assignments: dict[str, Any], replacements: dict[str, Any], rng: Random
+    ) -> dict[str, Any]:
+        """Evaluate derived init lines against already-assigned variables.
+
+        Lines are evaluated in declaration order; each result is fed back into the
+        environment so a later derived line may depend on an earlier one. The rng-bound
+        eval context is used so derived lines may themselves call ``sample`` (e.g. to
+        choose among synonyms that agree with a sampled number).
+        """
+        env = _build_eval_context(rng, replacements) | {k: parse_value(v) for k, v in assignments.items()}
+        derived: dict[str, Any] = {}
+        for line in self.derived_lines:
+            variable_part, definition_part = line.split("=", 1)
+            variables = strip_elements(variable_part.strip("$").split(","))
+            values = _eval_node(_parse_expr(definition_part.strip()), env)
+            if not isinstance(values, (list, tuple)):
+                values = [values]
+            if len(values) != len(variables):
+                logger.warning(
+                    f"Incompatible variables {variables} and values {values} in template {self.id_shuffled}."
+                )
+                continue
+            for var, value in zip(variables, values):
+                derived[var] = value
+                env[var] = parse_value(value)
+        return derived
 
     def generate_questions(
         self,
