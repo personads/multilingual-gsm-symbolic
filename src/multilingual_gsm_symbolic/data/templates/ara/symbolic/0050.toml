@@ -1,0 +1,8 @@
+question = "مساحة غرفة نوم خالد المستطيلة هي 360 قدم مربع. فإذا كان طول الغرفة 3 ياردة، فما محيط الغرفة بالأقدام؟"
+answer = "طول الغرفة هو 3 ياردة * (3 أقدام / 1 ياردة) = <<3*(3/1)=9>>9 قدم.\nعرض الغرفة هو 360 قدم مربع / 9 قدم = <<360/9=40>>40 قدم.\nمحيط الغرفة هو 2(40+9) = 98 قدم\n#### 98\n"
+id_orig = 440
+id_shuffled = 50
+question_annotated = "مساحة {room_type,غرفة نوم} {name,خالد} المستطيلة هي {area,360} قدم مربع. فإذا كان طول الغرفة {length,3} ياردة، فما محيط الغرفة بالأقدام؟\n\n#init:\n- name = sample(names_male)\n- room_type = sample([\"غرفة المعيشة\", \"المكتب\", \"المكتب الخاص\", \"المطبخ\"])\n- $area = range(200, 1200)\n- $length = range(3, 44)\n\n#conditions:\n- is_int(area / (length * 3))\n- area / (length * 3) > length * 3\n\n#answer: 2 * (area // (length * 3) + length * 3)\n"
+answer_annotated = "طول الغرفة هو {length} ياردة * (3 أقدام / 1 ياردة) = <<{length}*(3/1)={length*3}>>{length*3} قدم.\nعرض الغرفة هو {area} قدم مربع / {length*3} قدم = <<{area}/{length*3}={area//(length*3)}>>{area//(length*3)} قدم.\nمحيط الغرفة هو 2({area//(length*3)}+{length*3}) = {2*(area//(length*3)+length*3)} قدم\n#### {2*(area//(length*3)+length*3)}\n"
+creation = "machine-translated from English using anthropic/claude-opus-4-8, based on English templates; computationally validated; validated by a native speaker."
+language = "ara"
