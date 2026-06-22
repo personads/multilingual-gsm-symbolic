@@ -36,7 +36,7 @@ Die Differenz zwischen diesen beiden Wahrscheinlichkeiten ist {int((sides_val-ta
 #### { int((sides_val-target)/sides_val * 100) - 25}
 """
 
-creation = "machine-translated from Danish using gpt-5.4, based on Danish templates; computationally validated"
+creation = "machine-translated from Danish using gpt-5.4, based on Danish templates; computationally validated; validated by native speaker"
 
 language = "deu"
 
