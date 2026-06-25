@@ -20,7 +20,7 @@ Prinz {name1,Theodor} tötete {n1,100} {creature,Drachen} mit {w1a,seinem} mäch
 - w1a, weapon1 = sample([["seinem", "Schwert"], ["seiner", "Kampfaxt"], ["seinem", "Kriegshammer"]])
 - w2a, weapon2 = sample([["einen", "Speer"], ["eine", "Lanze"], ["eine", "Hellebarde"]])
 - w3a, weapon3 = sample([["einer", "rostigen Eisenaxt"], ["einem", "Steinhammer"], ["einem", "Holzhammer"]])
-- w4a, weapon4 = sample([["sein"]. ["Schwert"], ["seine", "Axt"], ["seinen", "Hammer"]])
+- w4a, weapon4 = sample([["sein". ["Schwert"]], ["seine", "Axt"], ["seinen", "Hammer"]])
 - w5a, weapon5 = sample([["einer", "Nagelfeile"], ["einem", "Buttermesser"], ["einem", "Löffel"], ["einer", "Feder"]])
 - $n1 = range(50, 501, 50)
 - frac1_txt, frac1_val = sample(fraction_alnum)
