@@ -17,7 +17,7 @@ question_annotated = """
 Eine neue {sygdom,Pest} infiziert {n0_txt,zehn} Personen. Jeden Tag infiziert jede infizierte Person {r_txt,sechs} weitere. Wie viele Menschen sind nach drei Tagen infiziert?
 
 #init:
-- sygdom = sample(['virus', 'bakterie', 'parasit', 'infektion'])
+- sygdom = sample(['Viruskrankheit', 'Bakterieninfektion'])
 - n0_txt, n0_val = range_str(5, 22, 1, numbers)
 - r_txt, r_val = range_str(2, 8, 1, numbers)
 #conditions:
