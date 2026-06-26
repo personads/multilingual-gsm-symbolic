@@ -15,7 +15,7 @@ question_annotated = """
 
 #init:
 - name = sample(names_female)
-- document, document_definite = sample([("rapport","rapporten"), ("afhandling","afhandlingen"), ("opgave","opgaven"), ("artikel","artiklen"), ("forskningsartikel","forskningsartiklen")])
+- document, document_definite = sample([("Bericht","Berichts"), ("Aufsatz","Aufsatzes"), ("Artikel","Artikels"), ("Forschungsartikel","Forschungsartikels"), ("Essay","Essays")])
 - $n = range(10, 325)
 - frac_txt, frac_val = sample(fraction_alnum)
 

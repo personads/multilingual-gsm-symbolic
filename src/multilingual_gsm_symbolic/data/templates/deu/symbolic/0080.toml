@@ -18,7 +18,7 @@ Die Automaten verkaufen {item1,Chips} für {price1,40} Öre und {item2,Schokorie
 
 #init:
 - name = sample(names_male)
-- item1, item2 = sample(['chokoladebarer', 'tyggegummi', 'cookies', 'muffins', 'kiks'], 2)
+- item1, item2 = sample(['Schokoriegel', 'Kaugummi', 'Kekse', 'Muffins', 'Chips'], 2)
 - cur = sample(currencies_sym)
 - $price1 = range(25, 100, 5)
 - $price2 = range(50, 150, 5)

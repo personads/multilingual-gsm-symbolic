@@ -17,10 +17,10 @@ question_annotated = """
 
 #init:
 - title = sample(["Hr.", "Prof.", "Dr."])
-- name = sample(["Christensen", "Johnson", "Løkke", "Jørgensen", "Rasmussen", "Frederiksen", "Johansen", "Møller", "Mortensen"])
-- property = sample(["hus", "lejlighed", "villa", "sommerhus", "andelsbolig"])
-- fee1_name = sample(["overdragelses", "registrerings", "advokats"])
-- fee2_name = sample(["mægler", "agent", "ejensomsmægler"])
+- name = sample(["Christensen", "Johnson", "Lehmann", "Jäger", "Rasmussen", "Frederiksen", "Johansen", "Möller", "Mortensen"])
+- property = sample(["Haus", "Reihenhaus", "Stadthaus", "Ferienhaus", "Bungalow"])
+- fee1_name = sample(["Übertragungs", "Registrierungs", "Rechtsanwalts"])
+- fee2_name = sample(["Makler", "Vermittlungs", "Immobilienmakler"])
 - $price = range(1300000, 6700000, 70000)
 - $fee1_percent = range(1, 5)
 - $fee2_percent = range(2, 7)

@@ -1,8 +1,8 @@
-question = "Ein turm besteht aus 4 blauen blöcke, zweimal so vielen gelben blöcke und einer unbekannten Anzahl roten blöcke. Wenn es insgesamt 32 blöcke in dem turm gibt, wie viele roten blöcke gibt es dann?"
+question = "Ein Turm besteht aus 4 blauen Blöcke, zweimal so vielen gelben Blöcke und einer unbekannten Anzahl roten Blöcke. Wenn es insgesamt 32 Blöcke in dem Turm gibt, wie viele roten Blöcke gibt es dann?"
 
 answer = """
-Es gibt 4*2=<<4*2=8>>8 gelben blöcke in dem turm.
-Es gibt 32-4-8 = <<32-4-8=20>>20 roten blöcke in dem turm.
+Es gibt 4*2=<<4*2=8>>8 gelben Blöcke in dem Turm.
+Es gibt 32-4-8 = <<32-4-8=20>>20 roten Blöcke in dem Turm.
 #### 20
 """
 
@@ -11,12 +11,12 @@ id_orig = 1268
 id_shuffled = 41
 
 question_annotated = """
-Ein {structure,turm} besteht aus {n1,4} {color1,blauen} {obj,blöcken}, {mult_txt,zweimal} so vielen {color2,gelben} {obj,blöcken} und einer unbekannten Anzahl {color3,roten} {obj,blöcken}. Wenn es insgesamt {total,32} {obj,blöcke} in {structure_definite,dem turm} gibt, wie viele {color3,roten} {obj,blöcke} gibt es dann?
+Ein {structure,Turm} besteht aus {n1,4} {color1,blauen} {obj,Blöcken}, {mult_txt,zweimal} so vielen {color2,gelben} {obj,Blöcken} und einer unbekannten Anzahl {color3,roten} {obj,Blöcken}. Wenn es insgesamt {total,32} {obj,Blöcke} in {structure_definite,dem Turm} gibt, wie viele {color3,roten} {obj,Blöcke} gibt es dann?
 
 #init:
 - structure, structure_definite = sample([("Turm", "dem Turm"), ("Gebäude", "dem Gebäude"), ("Pyramide", "der Pyramide"), ("Stapel", "dem Stapel")])
 - obj = sample(["Ziegelstein", "Ziegel", "Fliese"])
-- color1, color2, color3 = sample(["grønne", "lilla", "orange", "pink", "hvide", "sorte"], 3)
+- color1, color2, color3 = sample(["blauen", "grünen", "roten", "gelben", "pinken", "weißen", "schwarzen"], 3)
 - $n1 = range(2, 10)
 - mult_txt, mult_var = sample(multi_times)
 - $total = range(20, 50)

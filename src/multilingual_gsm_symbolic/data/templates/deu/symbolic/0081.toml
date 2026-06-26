@@ -15,9 +15,9 @@ question_annotated = """
 Das Ostereier{event,suchteam} versteckte {total,100} {item,Eier}. Die {family,Jensen}-Zwillinge fanden jeweils {n,30} {item,Eier}. Alle anderen {item,Eier} außer {m,10} wurden von ihren Freunden gefunden. Wie viele {item,Eier} fanden die Freunde?
 
 #init:
-- event = sample(["jægerne", "skattejægerne", "deltagerne"])
-- item = sample(["æg", "godter", "legetøj", "mønter", "slik", "goder"])
-- family = sample(["Madsen", "Hansen", "Æbelgaard", "Poulsen", "Christensen"])
+- event = sample(["suchteam", "suchkomitee", "jagdteam"])
+- item = sample(["Eier", "Süßigkeiten", "Spielzeug", "Münzen", "Bonbons", "Überraschungen"])
+- family = sample(["Müller", "Hansen", "Schmidt", "Poulsen", "Christensen"])
 - $total = range(50, 201, 10)
 - $n = range(10, 51)
 - $m = range(5, 21)

@@ -17,7 +17,7 @@ Ein {worker,zwerg} kann {base,12} {unit,kg} Erz pro Tag mit {tool1,seinen bloße
 
 #init:
 - worker, worker_plural = sample([("Zwerg", "Zwerge"), ("Goblin", "Goblins"), ("Gnom", "Gnome"), ("Troll", "Trolle")])
-- tool1 = sample(["bloßen Händen", "Schaufel", "Holzhacke"])
+- tool1 = sample(["seinen bloßen Händen", "einer Schaufel", "einer Holzhacke"])
 - unit = sample(["kg", "g"])
 - tool2 = sample(["Nickelhacke", "Bronzehacke", "Silberhacke"])
 - tool3 = sample(["Stahlhacke", "Diamanthacke", "Mithrilhacke", "Titaniumhacke"])

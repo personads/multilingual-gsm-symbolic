@@ -14,7 +14,7 @@ question_annotated = """
 Es sind {n,6} Mädchen im {place,Park}. Wenn es {mult_txt,zweimal} so viele Jungen im {place,Park} gibt, wie viele Kinder sind dann im {place,Park}?
 
 #init:
-- place = sample(["parken", "gården", "haven", "legepladsen", "skolegården"])
+- place = sample(["Park", "Schulhof", "Garten", "Spielplatz", "Innenhof"])
 - $n = range(5, 51)
 - mult_txt, mult_val = sample(multi_times)
 

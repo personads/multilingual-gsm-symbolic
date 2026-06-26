@@ -20,7 +20,7 @@ question_annotated = """
 #init:
 - name = sample(names_male)
 - product = sample(["Gemüse", "Blumen", "Kräuter", "Pflanzen"])
-- location = sample(["markedet", "messen", "basaren", "gaden", "torvet"])
+- location = sample(["dem Markt", "der Messe", "dem Basar", "der Straße", "dem Marktplatz"])
 - item1, item2, item3 = sample(["Rosen", "Gänseblümchen", "Orchideen", "Pfingstrosen", "Anemonen", "Kornblumen"], 3)
 - unit, unit_plural = sample([("Topf", "Töpfe"), ("Strauß", "Sträuße"), ("Korb", "Körbe"), ("Bund", "Bunde"), ("Handvoll", "Handvoll")])
 - cur = sample(currencies_sym)
@@ -38,9 +38,9 @@ question_annotated = """
 answer_annotated = """
 {name} wird seine {item1} von {p1} {cur} auf {round(p1)} {cur} abrunden, da die Zahl nach {int(p1)} kleiner als 5 ist.
 {name} wird seine {item3} von {p3} {cur} auf {round(p3)} {cur} {'auf' if round(p3) > p3 else 'ab'}runden, da die Zahl nach {int(p3)} {'5 oder höher' if round(p3) > p3 else 'kleiner als 5'} ist.
-{name} verkauft {n1} Töpfe mit {item1}*{round(p1)} {cur} = <<{n1}*{round(p1)}={n1*round(p1)}>>{n1*round(p1)} {cur}
-{name} verkauft {n2} Töpfe mit {item2}*{round(p2)} {cur} = <<{n2}*{round(p2)}={n2*round(p2)}>>{n2*round(p2)} {cur}
-{name} verkauft {n3} Töpfe mit {item3}*{round(p3)} {cur} = <<{n3}*{round(p3)}={n3*round(p3)}>>{n3*round(p3)} {cur}
+{name} verkauft {n1} {unit_plural} mit {item1}*{round(p1)} {cur} = <<{n1}*{round(p1)}={n1*round(p1)}>>{n1*round(p1)} {cur}
+{name} verkauft {n2} {unit_plural} mit {item2}*{round(p2)} {cur} = <<{n2}*{round(p2)}={n2*round(p2)}>>{n2*round(p2)} {cur}
+{name} verkauft {n3} {unit_plural} mit {item3}*{round(p3)} {cur} = <<{n3}*{round(p3)}={n3*round(p3)}>>{n3*round(p3)} {cur}
 Insgesamt wird {name} {n1*round(p1)} {cur} + {n2*round(p2)} {cur} + {n3*round(p3)} {cur} = <<{n1*round(p1)}+{n2*round(p2)}+{n3*round(p3)}={n1*round(p1) + n2*round(p2) + n3*round(p3)}>>{n1*round(p1) + n2*round(p2) + n3*round(p3)} {cur} verdienen
 #### {n1*round(p1) + n2*round(p2) + n3*round(p3)}
 """

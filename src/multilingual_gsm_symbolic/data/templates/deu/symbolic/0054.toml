@@ -16,8 +16,9 @@ question_annotated = """
 
 #init:
 - name = sample(names_female)
-- fruit = sample(["appelsin", "pære", "fersken", "mango", "kiwi"])
-- sibling1, sibling2 = sample(["bror", "søster", "kusine", "fætter", "ven", "veninde"], 2)
+- fruit = sample(["Apfel", "Pfirsich", "Granatapfel"])
+- sibling1 = sample(["Schwester", "Cousine", "Freundin"])
+- sibling2 = sample(["Bruder", "Cousin", "Freund"])
 - $total = range(6, 33)
 - $n1 = range(2, 15)
 - $n2 = range(2, 13)

@@ -17,11 +17,11 @@ question_annotated = """
 
 #init:
 - name = sample(names_female)
-- shop = sample(["bageren", "konditoriet", "cafeen", "supermarkedet"])
-- item = sample(["kager", "boller", "desserter", "konditorkager"])
-- item1 = sample(["donuts", "croissanter", "brunsviger", "kanelsnegle"])
-- item2 = sample(["småkager", "napoleonshatte", "cookies", "hindbærsnitter"])
-- item3 = sample(["banankager", "brownies", "muffins", "scones"])
+- shop = sample(["Bäckerei", "Konditorei", "Café", "Supermarkt"])
+- item = sample(["Kuchen", "Brötchen", "Desserts", "Feingebäck"])
+- item1 = sample(["Donuts", "Croissants", "Zimtschnecken", "Karamellkekse"])
+- item2 = sample(["Cookies", "Eclairs", "Petit Fours", "Himbeer-Schnitten"])
+- item3 = sample(["Bananenkuchen", "Brownies", "Muffins", "Scones"])
 - $n1 = range(1, 10)
 - $n2 = range(4, 10)
 - $n3 = range(2, 10)

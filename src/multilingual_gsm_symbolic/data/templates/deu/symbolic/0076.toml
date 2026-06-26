@@ -19,7 +19,7 @@ question_annotated = """
 - name = sample(names_male)
 - fish = sample(["Thunfisch", "Lachs", "Kabeljau", "Forelle", "Steinbutt"])
 - day = sample(weekdays)
-- unit = sample(["kilogram", "kg"])
+- unit = sample(["Kilogramm", "kg"])
 - cur = sample(currencies_sym)
 - $n = range(3, 8)
 - $w1 = range(40, 80)
@@ -37,7 +37,7 @@ question_annotated = """
 answer_annotated = """
 {name} wird {w1}*{price} {cur} = <<{w1}*{price}={w1*price}>>{w1*price} {cur} mit dem ersten {fish} verdienen.
 Er wird {w2}*{price} {cur} = <<{w2}*{price}={w2*price}>>{w2*price} {cur} mit dem zweiten {fish} verdienen.
-Und er wird {w3}*{price} {cur} = <<{w3}*{price}={w3*price}>>{w3*price} {cur} mit dem dritten Thunfisch verdienen.
+Und er wird {w3}*{price} {cur} = <<{w3}*{price}={w3*price}>>{w3*price} {cur} mit dem dritten {fish} verdienen.
 Daher ist der Gesamtbetrag, den er für alle {fish} verdienen wird, {w1*price} {cur} + {w2*price} {cur} + {((n-2)*w3*price)} {cur} = <<{w1*price}+{w2*price}+{((n-2)*w3*price)}={int((w1 + w2) * price)+int((n-2)*w3*price)}>>{int((w1 + w2 + (n-2)*w3) * price)} {cur}.
 #### {int((w1 + w2 + (n-2)*w3) * price)}
 """

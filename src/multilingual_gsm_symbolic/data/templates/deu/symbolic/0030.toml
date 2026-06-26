@@ -16,8 +16,8 @@ question_annotated = """
 #init:
 - name = sample(names)
 - cur = sample(currencies_sym)
-- item, item_plural = sample([("bolt", "bolte"),("skrue", "skruer"), ("spændeskive", "spændeskiver"), ("møtrik", "møtrikker"), ("anker", "ankre")])
-- store_type = sample(["byggemarked", "isenkræmmer"])
+- item, item_plural = sample([("Bolzen", "Bolzen"), ("Schraube", "Schrauben"), ("Spannscheibe", "Spannscheiben"), ("Mutter", "Muttern"), ("Anker", "Anker")])
+- store_type = sample(["Baumarkt", "Eisenwarengeschäft"])
 - $quantity = range(15, 60)
 - $initial_amount = arange(85.5, 175, 5.5)
 - $unit_price = arange(0.2, 4.8, 0.1)

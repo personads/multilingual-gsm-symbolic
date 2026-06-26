@@ -15,8 +15,8 @@ Ein {person1,Junge} hat {n,5} {item,Karten}. Sein {relation,Bruder} hat {k,3} {i
 
 #init:
 - person1 = sample(["Schüler", "Junge", "Kind", "Knabe"])
-- item = sample(["kort", "Murmeln", "Aufkleber", "Bleistifte", "Radiergummi", "Bücher"])
-- relation = sample(["Schwester", "Bruder", "Freund", "Cousin"])
+- item = sample(["Karten", "Murmeln", "Aufkleber", "Bleistifte", "Radiergummis", "Bücher"])
+- relation = sample(["Bruder", "Freund", "Cousin"])
 - $n = range(5, 21)
 - $k = range(2, 10)
 

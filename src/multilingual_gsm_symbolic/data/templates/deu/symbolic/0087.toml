@@ -15,8 +15,8 @@ question_annotated = """
 Die größte Wasserrutsche in {park_name,Djurs Sommerland} ist {l1,300} {unit,cm} lang und die Leute rutschen mit {s1,60} {unit,cm}/Minute hinunter. Die zweitgrößte Wasserrutsche ist {l2,240} {unit,cm} lang, aber steiler, sodass die Leute mit {s2,80} {unit,cm}/Minute hinunterrutschen. Wie viel länger dauert es, auf der größten Rutsche zu fahren, verglichen mit der zweitgrößten?
 
 #init:
-- park_name = sample(["Fårup Sommerland", "Aqua Park", "vandlandet", "Legoland"])
-- unit = sample(['centimeter', 'cm', 'meter', 'm'])
+- park_name = sample(["Heide Park", "Aqua Park", "Wasserland", "Legoland"])
+- unit = sample(['Zentimeter', 'cm', 'Meter', 'm'])
 - $l1 = range(250, 401, 10)
 - $l2 = range(200, 301, 10)
 - $s1 = range(40, 81, 5)

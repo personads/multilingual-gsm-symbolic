@@ -1,4 +1,4 @@
-question = "Ein Gläser enthält 8 ml Milch. Jonas dringt 2 Gläser Milch. Wenn Milch 3 Kalorien pro ml hat, wie viele Kalorien hat er zu sich genommen?"
+question = "Ein Gläser enthält 8 ml Milch. Jonas trinkt 2 Gläser Milch. Wenn Milch 3 Kalorien pro ml hat, wie viele Kalorien hat er zu sich genommen?"
 
 answer = """
 Er trank 8*2=<<8*2=16>>16 ml Milch
@@ -11,12 +11,12 @@ id_orig = 400
 id_shuffled = 56
 
 question_annotated = """
-Ein {container,Glas} enthält {vol,8} {unit,ml} {liquid,Milch}. {name,Jonas} dringt {num,2} {container,Gläser} {liquid,Milch}. Wenn {liquid,Milch} {cal,3} Kalorien pro {unit,ml} hat, wie viele Kalorien hat er zu sich genommen?
+Ein {container,Glas} enthält {vol,8} {unit,ml} {liquid,Milch}. {name,Jonas} trinkt {num,2} {container,Gläser} {liquid,Milch}. Wenn {liquid,Milch} {cal,3} Kalorien pro {unit,ml} hat, wie viele Kalorien hat er zu sich genommen?
 
 #init:
 - name = sample(names_male)
-- container = sample(["kop", "flaske", "karton"])
-- liquid = sample(["juice", "sodavand", "danskvand", "te", "lemonade"])
+- container = sample(["Becher", "Glas", "Krug"])
+- liquid = sample(["Saft", "Limonade", "Mineralwasser", "Tee", "Milch"])
 - unit = sample(["ml", "dl", "l", "mililiter", "liter"])
 - $vol = range(6, 16)
 - $num = range(2, 6)

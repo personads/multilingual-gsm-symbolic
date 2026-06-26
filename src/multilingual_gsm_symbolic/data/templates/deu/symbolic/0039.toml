@@ -18,7 +18,7 @@ Ein {job,Hausmeister} soll in einer {building,Schule} mit {n,80} {room_plural,Kl
 
 #init:
 - job = sample(["Hausmeister", "Reinigungskraft", "Wartungsarbeiter"])
-- building = sample(["Bürogebäude", "hospital", "universitet"])
+- building = sample(["Schule", "Universität", "Bibliothek"])
 - room, room_plural = sample([("Klassenzimmer", "Klassenzimmer"), ("Zimmer", "Zimmer"), ("Etage", "Etagen")])
 - $n = range(50, 221, 5)
 - $d = range(3, 12)

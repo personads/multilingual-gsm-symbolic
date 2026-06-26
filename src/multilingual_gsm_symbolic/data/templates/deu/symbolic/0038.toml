@@ -16,8 +16,8 @@ Ein {item1,Brot} beim {shop,Bäcker} kostet {price1,30} {cur,kr}. {item2,Bagels}
 
 #init:
 - item1 = sample(["Brot", "Sauerteigbrot", "Roggenbrot"])
-- item2 = sample(["bagels", "muffins", "croissanter", "Kekse"])
-- shop = sample(["Bäckerei", "Café", "Supermarkt", "Kiosk"])
+- item2 = sample(["Bagels", "Muffins", "Croissants", "Kekse"])
+- shop = sample(["Bäcker", "Café", "Supermarkt", "Kiosk"])
 - cur = sample(currencies_sym)
 - $price1 = range(30, 100)
 - $price2 = range(10, 35)

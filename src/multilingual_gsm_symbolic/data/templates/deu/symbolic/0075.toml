@@ -1,4 +1,4 @@
-question = "Derzeit gibt es im Laden 3 rote Bälle, 11 blaue Bälle und 25 grüne Bälle. Rote Bälle kosten 9 kr, blaue Bälle kosten 5 kr und grüne Bälle kosten 3 kr. Wie viel wird {place} eingenommen haben, nachdem alle Bälle verkauft sind?"
+question = "Derzeit gibt es im Laden 3 rote Bälle, 11 blaue Bälle und 25 grüne Bälle. Rote Bälle kosten 9 kr, blaue Bälle kosten 5 kr und grüne Bälle kosten 3 kr. Wie viel wird der {place,Laden} eingenommen haben, nachdem alle Bälle verkauft sind?"
 
 answer = """
 Für die roten Bälle gilt: 3 Bälle*9 kr/Ball = <<3*9=27>>27 kr.
@@ -13,10 +13,10 @@ id_orig = 1111
 id_shuffled = 75
 
 question_annotated = """
-Derzeit gibt es im {place,Laden} {n1,3} {c1,rote} Bälle, {n2,11} {c2,blaue} Bälle und {n3,25} {c3,grüne} Bälle. {c1,rote} Bälle kosten {p1,9} {cur,kr}, {c2,blaue} Bälle kosten {p2,5} {cur,kr} und {c3,grüne} Bälle kosten {p3,3} {cur,kr}. Wie viel wird {place} eingenommen haben, nachdem alle Bälle verkauft sind?
+Derzeit gibt es im {place,Laden} {n1,3} {c1,rote} Bälle, {n2,11} {c2,blaue} Bälle und {n3,25} {c3,grüne} Bälle. {c1,rote} Bälle kosten {p1,9} {cur,kr}, {c2,blaue} Bälle kosten {p2,5} {cur,kr} und {c3,grüne} Bälle kosten {p3,3} {cur,kr}. Wie viel wird der {place,Laden} eingenommen haben, nachdem alle Bälle verkauft sind?
 
 #init:
-- place = sample(["butik", "supermarked", "marked", "kiosk"])
+- place = sample(["Laden", "Supermarkt", "Markt", "Kiosk"])
 - c1, c2, c3 = sample(["rot", "blau", "grün", "gelb", "lila", "orange", "pink"], 3)
 - cur = sample(currencies_sym)
 - $n1 = range(3, 20)

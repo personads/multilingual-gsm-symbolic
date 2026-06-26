@@ -16,9 +16,9 @@ question_annotated = """
 
 #init:
 - name = sample(names_male)
-- vehicle = sample(['bil', 'varevogn', 'lastbil', 'SUV'])
-- item = sample(['bagage', 'dagligvarer', 'udstyr', 'møbler'])
-- passenger_type = sample(['børn', 'venner', 'kolleger', 'søskende'])
+- vehicle = sample(['Auto', 'Motorrad', 'SUV', 'Elektroauto'])
+- item = sample(['Gepäck', 'Werkzeug', 'Zubehör', 'Material'])
+- passenger_type = sample(['Kinder', 'Freunde', 'Kollegen', 'Geschwister'])
 - unit = sample(['kg', 'kilogram'])
 - $weight_vehicle = range(1000, 3000, 50)
 - $weight_item = range(100, 500, 25)

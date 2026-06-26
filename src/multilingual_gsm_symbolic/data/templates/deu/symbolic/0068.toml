@@ -16,8 +16,8 @@ question_annotated = """
 
 #init:
 - name = sample(names_female)
-- game1, game2 = sample(["Worträtsel", "sudoku", "Schachaufgabe", "Rätsel", "Kreuzworträtsel"], 2)
-- period = sample(["weekenden", "ferien", "helligdagen", "fridagen", "ugen"])
+- game1, game2 = sample(["Worträtsel", "Sudoku", "Schachaufgabe", "Rätsel", "Kreuzworträtsel"], 2)
+- period = sample(["Wochenendes", "Tages", "Urlaubs", "Feiertags"])
 - $t1 = range(5, 30)
 - $t2 = range(3, 20)
 - $n1 = range(2, 10)
@@ -32,7 +32,7 @@ question_annotated = """
 answer_annotated = """
 Es dauert {t1} Minuten, ein {game1} zu lösen, und sie löste {n1}, was insgesamt {t1}*{n1} = <<{t1}*{n1}={t1*n1}>>{t1*n1} Minuten ergibt
 Es dauert {t2} Minuten, ein {game2} zu lösen, und sie löste {n2}, was insgesamt {t2}*{n2} = <<{t2}*{n2}={t2*n2}>>{t2*n2} Minuten ergibt
-Sie verbrachte {t1*n1} Minuten mit Kreuzworträtseln und {t2*n2} Minuten mit Sudokus, insgesamt {t1*n1}+{t2*n2} = <<{t1*n1}+{t2*n2}={t1*n1 + t2*n2}>>{t1*n1 + t2*n2} Minuten
+Sie verbrachte {t1*n1} Minuten mit {game1} und {t2*n2} Minuten mit {game2}, insgesamt {t1*n1}+{t2*n2} = <<{t1*n1}+{t2*n2}={t1*n1 + t2*n2}>>{t1*n1 + t2*n2} Minuten
 #### {t1*n1 + t2*n2}
 """
 

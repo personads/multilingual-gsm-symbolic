@@ -1,4 +1,4 @@
-question = "Maria kauft 8 Aktien einer Aktie für je 8 kr. Der Aktienkurs steigt im ersten Jahr, in dem Maria sie besitzt, um 50 % und fällt danach im zweiten Jahr um 25 %. Wie hoch ist der Endwert aller Aktien von Maria?"
+question = "Maria kauft 8 Aktien zu je 8 kr. Der Aktienkurs steigt im ersten Jahr, in dem Maria sie besitzt, um 50 % und fällt danach im zweiten Jahr um 25 %. Wie hoch ist der Endwert aller Aktien von Maria?"
 
 answer = """
 Zuerst berechnen wir den ursprünglichen Gesamtwert von Marias Kauf: 8 Aktien * 8 kr/Aktie = <<8*8=64>>64 kr
@@ -14,7 +14,7 @@ id_orig = 336
 id_shuffled = 84
 
 question_annotated = """
-{name,Maria} kauft {n,8} Aktien einer Aktie für je {p,8} {cur,kr}. Der Aktienkurs steigt im ersten Jahr, in dem {name,Maria} sie besitzt, um {r1,50} % und fällt danach im zweiten Jahr um {r2,25} %. Wie hoch ist der Endwert aller Aktien von {name,Maria}?
+{name,Maria} kauft {n,8} Aktien zu je {p,8} {cur,kr}. Der Aktienkurs steigt im ersten Jahr, in dem {name,Maria} sie besitzt, um {r1,50} % und fällt danach im zweiten Jahr um {r2,25} %. Wie hoch ist der Endwert aller Aktien von {name,Maria}?
 
 #init:
 - name = sample(names_female)

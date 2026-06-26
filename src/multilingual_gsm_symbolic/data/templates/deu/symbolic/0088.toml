@@ -39,7 +39,7 @@ question_annotated = """
 """
 
 answer_annotated = """
-Wenn {name} mit der halben Geschwindigkeit hüpfen kann, mit der sie laufen kann, dann kann sie mit {skip_speed}*{1/frac_skip_val}=<<{skip_speed}*{1/frac_skip_val}={skip_speed / frac_skip_val}>>{skip_speed / frac_skip_val} km pro Stunde laufen.
+Wenn {name} mit {frac_skip_txt} der Laufgeschwindigkeit hüpfen kann, dann kann sie mit {skip_speed}*{1/frac_skip_val}=<<{skip_speed}*{1/frac_skip_val}={skip_speed / frac_skip_val}>>{skip_speed / frac_skip_val} km pro Stunde laufen.
 Und da sie mit einer Geschwindigkeit laufen kann, die {mult_run_txt} so schnell ist wie die, mit der sie gehen kann, bedeutet das, dass sie mit {skip_speed / frac_skip_val}/{mult_run_val}={float(skip_speed / frac_skip_val / mult_run_val)} km pro Stunde gehen kann.
 Wenn {frac_walk_txt} der Zeit zum Gehen verwendet werden, dann geht sie {total_time_val}*{frac_walk_val}=<<{total_time_val}*{frac_walk_val}={total_time_val * frac_walk_val}>>{total_time_val * frac_walk_val} Stunden.
 Wenn {frac_run_txt} der Zeit zum Laufen verwendet wird, dann läuft sie {total_time_val}-{total_time_val * frac_walk_val}=<<{total_time_val}-{total_time_val * frac_walk_val}={total_time_val * frac_run_val}>>{total_time_val * frac_run_val} Stunden.

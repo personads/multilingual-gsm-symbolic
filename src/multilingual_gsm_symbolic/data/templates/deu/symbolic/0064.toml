@@ -15,10 +15,10 @@ question_annotated = """
 
 #init:
 - name = sample(names_female)
-- item = sample(["krymmel", "frosting", "glasur", "chokoladeknapper"])
-- food = sample(["cupcakes", "cookies", "brownies", "muffins"])
-- location = sample(["spisekammer", "skab", "køkkenskab", "opbevaringsrum"])
-- container, container_plural = sample([("pande", "pander"), ("bakke","bakker"), ("bageplade","bageplader"), ("stativ","stativer"), ("bageform", "bageforme")])
+- item = sample(["Streusel", "Frosting", "Glasur", "Schokoladendrops"])
+- food = sample(["Cupcakes", "Cookies", "Brownies", "Muffins"])
+- location = sample(["Speisekammer", "Schrank", "Küchenschrank", "Abstellraum"])
+- container, container_plural = sample([("Backblech", "Backbleche"), ("Tablett", "Tabletts"), ("Backform", "Backformen"), ("Muffinblech", "Muffinbleche"), ("Kuchenform", "Kuchenformen")])
 - $n = range(3, 15)
 - $m = range(6, 20)
 - $k = range(6, 24)

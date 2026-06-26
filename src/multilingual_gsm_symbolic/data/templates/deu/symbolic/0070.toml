@@ -15,7 +15,7 @@ question_annotated = """
 Ein {occupation,Klempner} arbeitet {w,4} Wochen pro Monat und {d,6} Tage pro Woche. Wenn er {p,50} {cur,kr} pro Tag bekommt, wie viel verdient er, wenn er ein Jahr lang arbeitet?
 
 #init:
-- occupation = sample(["blikkenslager", "elektriker", "maler", "tømrer", "anlægsgartner"])
+- occupation = sample(["Klempner", "Elektriker", "Maler", "Zimmermann", "Gärtner"])
 - cur = sample(currencies_sym)
 - $w = range(2, 5)
 - $d = range(4, 7)

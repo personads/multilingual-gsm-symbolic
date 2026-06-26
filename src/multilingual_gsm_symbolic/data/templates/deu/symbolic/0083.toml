@@ -1,7 +1,7 @@
 question = "Die Familie Slot ist damit beschäftigt, Kekse zu backen. Bisher haben sie 7995 Kekse gemacht. Sie haben 2595 Zitronen-Kekse, 3075 Haferflocken-Kekse und einige Schokoladen-Kekse. Wie viele Schokoladen-Kekse haben sie gemacht?"
 
 answer = """
-Die Gesamtzahl der Zitronen-Kekse und Haferflocken-Kekse Kekse ist 2595 + 3075 = <<2595+3075=5670>>5670.
+Die Gesamtzahl der Zitronen-Kekse und Haferflocken-Kekse ist 2595 + 3075 = <<2595+3075=5670>>5670.
 Daher haben sie 7995 - 5670 = <<7995-5670=2325>>2325 Schokoladen-Kekse gemacht.
 #### 2325
 """
@@ -11,11 +11,11 @@ id_orig = 1305
 id_shuffled = 83
 
 question_annotated = """
-Die Familie {family,Slot} ist damit beschäftigt, {item,Kekse} zu backen. Bisher haben sie {total,7995} {item,Kekse} gemacht. Sie haben {n1,2595} {flavor1,Zitronen-Kekse}, {n2,3075} {flavor2,Haferflocken-Kekse} und einige {flavor3,Schokoladen-Kekse}. Wie viele {flavor3,Schokoladen-Kekse} haben sie gemacht?
+Die Familie {family,Slot} ist damit beschäftigt, {item,Kekse} zu backen. Bisher haben sie {total,7995} {item,Kekse} gemacht. Sie haben {n1,2595} {flavor1,Zitronen}-{item,Kekse}, {n2,3075} {flavor2,Haferflocken}-{item,Kekse} und einige {flavor3,Schokoladen}-{item,Kekse}. Wie viele {flavor3,Schokoladen}-{item,Kekse} haben sie gemacht?
 
 #init:
 - family = sample(["Müller", "Schmidt", "Fischer", "Weber", "Wagner"])
-- item = sample(["muffins", "cupcakes", "sandkager", "brownies"])
+- item = sample(["Muffins", "Cupcakes", "Kekse", "Brownies"])
 - flavor1, flavor2, flavor3 = sample(["Vanille", "Erdbeere", "Heidelbeere", "Zitrone", "Orange"], 3)
 - $total = range(4995, 10000, 25)
 - $n1 = range(995, 3000, 50)
@@ -28,8 +28,8 @@ Die Familie {family,Slot} ist damit beschäftigt, {item,Kekse} zu backen. Bisher
 """
 
 answer_annotated = """
-Die Gesamtzahl der {flavor1} und {flavor2} {item} ist {n1} + {n2} = <<{n1}+{n2}={n1+n2}>>{n1+n2}.
-Daher haben sie {total} - {n1+n2} = <<{total}-{n1+n2}={total-(n1+n2)}>>{total-(n1+n2)} {flavor3} gemacht.
+Die Gesamtzahl der {flavor1}-{item} und {flavor2}-{item} ist {n1} + {n2} = <<{n1}+{n2}={n1+n2}>>{n1+n2}.
+Daher haben sie {total} - {n1+n2} = <<{total}-{n1+n2}={total-(n1+n2)}>>{total-(n1+n2)} {flavor3}-{item} gemacht.
 #### {total-(n1+n2)}
 """
 

@@ -16,10 +16,10 @@ question_annotated = """
 In {lærer,Hansen}s Klasse mit {total,30} Schülern sind {p1,20}% der Klasse {gruppe1,Fußballspieler}. Von den übrigen Schülern sind {p2,25}% {gruppe2,Cheerleader} oder {gruppe3,Teil der Band}. Diese 3 Gruppen von Schülern müssen heute die Schule früher verlassen, um zu {event,einem Auswärtsspiel} zu fahren. Wie viele Schüler verlassen die Schule früher?
 
 #init:
-- lærer = sample(['Hansen', 'Jensen', 'Susanne', 'Lærke'])
-- gruppe1 = sample(['fodboldspillere', 'basketballspillere', 'volleyballspillere', 'svømmere'])
-- gruppe2, gruppe3 = sample(['dansere', 'kormedlemmer', 'cheerleadere'],  2)
-- event = sample(['en udekamp', 'en konkurrence', 'en turnering', 'en forestilling', 'et stævne'])
+- lærer = sample(['Hansen', 'Jensen', 'Susanne', 'Schreiber'])
+- gruppe1 = sample(['Fußballspieler', 'Basketballspieler', 'Volleyballspieler', 'Schwimmer'])
+- gruppe2, gruppe3 = sample(['Tänzer', 'Chorsänger', 'Cheerleader'],  2)
+- event = sample(['einem Auswärtsspiel', 'einem Wettbewerb', 'einem Turnier', 'einer Vorstellung', 'einem Wettkampf'])
 - $total = range(20, 150)
 - $p1 = range(10, 50)
 - $p2 = range(15, 45)

@@ -16,7 +16,7 @@ question_annotated = """
 In einem Satz {item,Zauberer}-Karten gibt es {n1,15} {c1,rote} Karten und {p,60}% mehr {c2,grüne} Karten. {c3,gelbe} Karten sind genauso viele wie die Summe aus {c1,roten} und {c2,grünen} Karten. Wie viele Karten in allen genannten Farben gibt es?
 
 #init:
-- item = sample(["trylle", "tryllekunstner", "magiker", "kunstner", "magi"])
+- item = sample(["Zauberer", "Drachen", "Ritter", "Elfen", "Krieger"])
 - c1, c2, c3 = sample(["rote", "blaue", "grüne", "gelbe", "lila", "orange"], 3)
 - $n1 = range(15, 81)
 - $p = range(20, 90)

@@ -4,7 +4,7 @@ answer = """
 Finde zuerst heraus, wie viel Heu jedes Schaf braucht: 5 kg * 2 - 3 = <<5*2-3=7>>7 kg/Schaf
 Dann rechne aus, wie viel Heu die Schafe insgesamt brauchen: 7 kg/Schaf * 12 Schafe = <<7*12=84>>84 kg
 Danach rechne aus, wie viel Heu die Ziegen insgesamt brauchen: 5 kg/Ziege * 15 Ziegen = <<5*15=75>>75 kg
-Zum Schluss addiere die beiden Heumengen, um die Gesamtmenge zu finden: 84 kg + 75 kg = <<84+75=159>>159 kg
+Zum Schluss addiere die beiden {food}mengen, um die Gesamtmenge zu finden: 84 kg + 75 kg = <<84+75=159>>159 kg
 #### 159
 """
 
@@ -17,8 +17,9 @@ question_annotated = """
 
 #init:
 - name = sample(names_male)
-- food = sample(["hø", "korn", "foder", "halm"])
-- animal1, animal2 = sample(["ged", "ko", "hest", "æsel", "lama", "alpaka", "gris", "kalkun", "and"], 2)
+- food = sample(["Heu", "Getreide", "Futter", "Stroh"])
+- animal1 = sample(["Ziege", "Ente", "Katze", "Henne"])
+- animal2 = sample(["Schaf", "Pferd", "Schwein", "Hund"])
 - unit = sample(["kg", "kilogram"])
 - $n1 = range(3, 15)
 - $n2 = range(1, 10)
@@ -35,7 +36,7 @@ answer_annotated = """
 Finde zuerst heraus, wie viel {food} jedes {animal2} braucht: {n1} {unit} * 2 - {n2} = <<{n1}*2-{n2}={2*n1-n2}>>{2*n1-n2} {unit}/{animal2}
 Dann rechne aus, wie viel {food} die {animal2}e insgesamt brauchen: {2*n1-n2} {unit}/{animal2} * {k2} {animal2}e = <<{2*n1-n2}*{k2}={k2*(2*n1-n2)}>>{k2*(2*n1-n2)} {unit}
 Danach rechne aus, wie viel {food} die {animal1}n insgesamt brauchen: {n1} {unit}/{animal1} * {k1} {animal1}n = <<{n1}*{k1}={k1*n1}>>{k1*n1} {unit}
-Zum Schluss addiere die beiden Heumengen, um die Gesamtmenge zu finden: {k2*(2*n1-n2)} {unit} + {k1*n1} {unit} = <<{k2*(2*n1-n2)}+{k1*n1}={k1*n1 + k2*(2*n1 - n2)}>>{k1*n1 + k2*(2*n1 - n2)} {unit}
+Zum Schluss addiere die beiden {food}mengen, um die Gesamtmenge zu finden: {k2*(2*n1-n2)} {unit} + {k1*n1} {unit} = <<{k2*(2*n1-n2)}+{k1*n1}={k1*n1 + k2*(2*n1 - n2)}>>{k1*n1 + k2*(2*n1 - n2)} {unit}
 #### {k1*n1 + k2*(2*n1 - n2)}
 """
 

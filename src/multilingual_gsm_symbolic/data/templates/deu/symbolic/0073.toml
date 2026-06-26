@@ -16,7 +16,7 @@ Der Komet {comet_name,Halley} umkreist die Sonne alle {orbit_period,75} Jahre. {
 #init:
 - comet_name = sample(['Halley', 'Hale-Bopp', 'Hyakutake', 'Encke'])
 - name = sample(names_male)
-- relative = sample(['far', 'morfar', 'bedstefar', 'onkel'])
+- relative = sample(['Vater', 'Großvater', 'Opa', 'Onkel'])
 - $orbit_period = range(50, 101, 5)
 - $relative_age = range(20, 51)
 - multiple_txt, multiple_val = sample(multi_times)

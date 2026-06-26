@@ -16,8 +16,8 @@ question_annotated = """
 #init:
 - name1, name2 = sample(names_female, 2)
 - city = sample(cities)
-- celebrity_type = sample(["filmstjerner", "atleter", "musikere", "politikere", "forfattere"])
-- vacation_type = sample(["vinterferie", "påskeferie", "sommerferie", "efterårsferie"])
+- celebrity_type = sample(["Prominenten", "Filmstars", "Athleten", "Musikern", "Autoren"])
+- vacation_type = sample(["Winterferien", "Osterferien", "Sommerferien", "Herbstferien"])
 - n1_txt, n1_val = range_str(3, 8, 1, numbers)
 - n2_txt, n2_val = range_str(2, 5, 1, numbers)
 - $s1 = range(15, 40)

@@ -16,9 +16,9 @@ question_annotated = """
 
 #init:
 - name = sample(names_male)
-- objects = sample(['kugler', 'mønter', 'knapper', 'perler'])
-- obstacle = sample(['sten', 'gren', 'rod', 'kæp'])
-- fake_object = sample(['glaskugle', 'træperle', 'småsten'])
+- objects = sample(['Murmeln', 'Münzen', 'Knöpfe', 'Perlen'])
+- obstacle = sample(['Stein', 'Ast', 'Wurzel', 'Stock'])
+- fake_object = sample(['Glasperlen', 'Holzperlen', 'Kieselsteine'])
 - fake_num_txt, fake_num_val = range_str(2, 10, 1, numbers)
 - frac_txt, frac_val = sample(fraction_alnum)
 - $n = range(10, 101, 2)

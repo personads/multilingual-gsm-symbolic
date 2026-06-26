@@ -16,8 +16,8 @@ question_annotated = """
 {name, Frau Jensen} sucht nach einem {property_type, Haus}, das ihr Budget von {budget, 2700000} kr nicht überschreitet. Sie sah eine Immobilie mit einem Verkaufspreis von {price, 2370000} kr. Zusätzlich muss der Käufer eine Maklergebühr zahlen, die {brokerage_fee, 5}% des Verkaufspreises beträgt, sowie die Übertragungsgebühr, die {transfer_fee, 12}% des gesamten Verkaufspreises beträgt. Um wie viel übersteigt der Gesamtpreis des {property_type_definite, Hauses} das Budget von {name, Frau Jensen}?
 
 #init:
-- name = sample(["Fru Madsen", "Frøken Hansen", "Dr. Sørensen", "Fru Andersen"])
-- property_type, property_type_definite = sample([("hus", "huset"), ("lejlighed", "lejligheden"), ("byhus", "byhuset"), ("andelslejlighed", "andelslejligheden")])
+- name = sample(["Frau Madsen", "Fräulein Hansen", "Dr. Bergmann", "Frau Andersen"])
+- property_type, property_type_definite = sample([("Haus", "Hauses"), ("Reihenhaus", "Reihenhauses"), ("Stadthaus", "Stadthauses"), ("Bungalow", "Bungalows")])
 - $budget = range(2000000, 3410000, 100000)
 - $price = range(1700000, 3050000, 10000)
 - $brokerage_fee = range(3, 8)
