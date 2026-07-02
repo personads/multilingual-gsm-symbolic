@@ -53,5 +53,55 @@
     "id": 10,
     "question_annotated": "{dev,公衆電話}からの通話は、1分ごとに{currency,￥}{price1,10}掛かります。{t,16}分を過ぎると、その料金は1分あたり{currency,￥}{price2,8}に下がります。{total,36}分の通話料金はいくらですか？\n\n#init:\n- dev = sample(['公衆電話', 'ホテルの電話'])\n- currency = sample(currencies_sym)\n- $price1 = range(10, 30)\n- $price2 = range(5, 20)\n- $t = range(10, 50)\n- $total = range(36, 100)\n\n#conditions:\n- is_int(price1 * t)\n- is_int((total-t) * price2)\n- price2 < price1\n- t < total\n\n#answer: int((price1 * t) + price2*(total-t))",
     "count": 100
+  },
+  {
+    "id": 11,
+    "question_annotated": "{name, えり}は{n,32}{unit,グラム}の水で、さまざまな大きさの氷を作りたいと思っています。1個あたり{w1,4}{unit,グラム}使う大きい氷、{w2,2}{unit,グラム}使う中くらいの氷、そして{w3,1/2}{unit,グラム}使う小さい氷を作ることができます。大きい氷を{n1,3}個、中くらいの氷を{n2,7}個、小さい氷を{n3,8}個作るとすると、水は何{unit,グラム}残りますか？\n\n#init:\n- name = sample(names)\n- unit = sample([\"グラム\", \"g\"])\n- $w1 = range(4, 10)\n- $w2 = range(2, 10)\n- $w3 = sample(fractions)\n- $n1 = range(3, 10)\n- $n2 = range(7, 13)\n- $n3 = sample([8, 14, 24, 15])\n- $n = range(32, 240, 4)\n\n#conditions:\n- w3 < w2 < w1\n- is_int(n3 * w3)\n- n - (n1*w1) - (n2*w2) - int(n3*w3) > 0\n\n#answer: (n - (n1*w1) - (n2*w2) - int(n3*w3))",
+    "count": 100
+  },
+  {
+    "id": 12,
+    "question_annotated": "{name, ゆうき}はいくつかの{surface,トレー}に{obj,卵}を置きます。各{surface,トレー}には{x,24}個の{obj,卵}を載せることができます。{n,64}個の{obj,卵}と{k,2}枚の{surface,トレー}がある場合、{surface,トレー}に載せられない{obj,卵}は何個残りますか？\n\n#init:\n- name = sample(names)\n- obj = sample([\"オリーブ\", \"アーモンド\", \"クッキー\", \"クラッカー\", \"バナナ\"])\n- surface = sample([\"皿\", \"テーブル\", \"トレー\"])\n- $x = range(20, 51)\n- $k = range(2, 30)\n- $n = range(60, 350, 2)\n\n#conditions:\n- k * x < n\n\n#answer: n - k*x",
+    "count": 100
+  },
+  {
+    "id": 13,
+    "question_annotated": "{name,さわこ}は庭いじりが好きです。{time, 昨日}、お気に入りの園芸店から新しい鉢植えを{x,18}鉢取り入れました。すでに、広い田舎家の{w,40}の窓辺それぞれに{r,2}鉢の鉢植えを置いています。明日、それぞれの窓辺から{n,1}鉢ずつを友人や家族にあげることにしました。{name,さわこ}には鉢植えが何鉢残りますか？\n\n#init:\n- name = sample(names)\n- time = sample([\"先週\", \"2日前\", \"昨夜\"])\n- $x = range(18, 50)\n- $r = range(2, 13)\n- $w = range(40, 70)\n- $n = range(1, 8)\n\n#conditions:\n- w * r + x - w*n > 0\n\n#answer: w * r + x - w*n",
+    "count": 100
+  },
+  {
+    "id": 14,
+    "question_annotated": "{n1,だいすけ}と{n2,ひろし}は一緒に{loc1,学校}まで歩いて行くのに{t,30}分あります。{loc2,図書館}のある角まで歩くのに{t1,6}分かかります。そこからさらに{loc3,消防署}まで{t2,13}分かかります。遅れずに{loc1,学校}に到着するのには、あとどれくらい時間が残っていますか？\n\n#init:\n- n1, n2 = sample(names, 2)\n- loc1, loc2, loc3 = sample(['学校', '映画館', '商店街', '図書館', '公園', '体育館', '銀行'], 3)\n- $t1 = range(6, 30)\n- $t2 = range(10, 70)\n- $t = range(30, 140)\n\n#conditions:\n- not divides(t1, 5)\n- not divides(t2, 5)\n- not divides(t, 5)\n- t > t1 + t2\n\n#answer: t - t1 - t2",
+    "count": 100
+  },
+  {
+    "id": 15,
+    "question_annotated": "{name1, かな}の犬には{n1, 8}匹の子犬がいて、そのうち{k1,3}匹に斑点があります。{name2, だいき}の犬には{n2,12}匹の子犬がいて、そのうち{k2,4}匹に斑点があります。子犬全体のうち、斑点があるのは何パーセントですか？\n\n#init:\n- name1, name2 = sample(names, 2)\n- $n1 = range(4, 16)\n- $n2 = range(4, 20)\n- $k1 = range(2, 12)\n- $k2 = range(2, 12)\n\n#conditions:\n- k1 < n1\n- k2 < n2\n- divides(n1 + n2, k1 + k2)\n- is_int(100 * (k1+k2) / (n1+n2))\n\n#answer: int(100 * (k1+k2) / (n1+n2))",
+    "count": 100
+  },
+  {
+    "id": 16,
+    "question_annotated": "{name, のぞみ}は資金集めのために{food,クッキー}と{fruit,アップル}パイを売っています。{d1,土曜日}には、{food,クッキー}が{n1,10}箱売れて、{fruit,アップル}パイは{d2,日曜日}より{m1,4}箱少なく売れました。{d2,日曜日}には、{fruit,アップル}パイを{m2,15}箱売り、{d1,土曜日}より{food,クッキー}を{n2,5}箱多く売れました。{food,クッキー}の値段が￥{cn,60}で、{fruit,アップル}パイ一個の値段が￥{cm,1500}だとすると、{name, のぞみ}はこの2日間でいくら稼ぎましたか？\n\n#init:\n- name = sample(names)\n- fruit = sample(fruits)\n- cur = sample(currencies_sym)\n- food = sample([\"クッキー\", \"ブラウニー\", \"マフィン\", \"カップケーキ\"])\n- d1, d2 = sample_sequential(weekdays, 2)\n- $n1 = range(21, 30)\n- $n2 = range(11, 15)\n- $m1 = range(4, 20)\n- $m2 = range(15, 30)\n- $cn = range(50, 200, 10)\n- $cm = range(500, 2000, 100)\n\n#conditions:\n- m1 < m2\n\n#answer: (2*n1+n2)*cn + (2*m2-m1)*cm",
+    "count": 100
+  },
+  {
+    "id": 17,
+    "question_annotated": "{name,おばあさん}は毎日、お気に入りの散歩道を{n,3}{unit,キロメートル}歩きます。その道には、砂浜を{m,2}{unit,キロメートル}歩く区間と、歩道を{k,1}{unit,キロメートル}歩く区間があります。{name,おばあさん}は歩道では砂浜での{mult_txt,2倍}の速さで歩きます。散歩のうち{t,40}分は砂浜に掛けるとすると、{n,3}{unit,キロメートル}全体を歩き終えるのに何分かかりますか？\n\n#init:\n- name = sample(names)\n- unit = sample([\"キロメートル\", \"km\"])\n- mult_txt, mult_val = sample(multi_times)\n- $n = range(3, 40)\n- $m = range(2, 20)\n- $k = range(1, 20)\n- $t = range(40, 70)\n#conditions:\n- m + k == n\n- m < t\n- mult_val *m < t\n- divides(t, m)\n- is_int(k / (mult_val*m/t))\n#answer: t+(k/(mult_val*m/t))",
+    "count": 100
+  },
+  {
+    "id": 18,
+    "question_annotated": "{name,あい}は学用品を買いに行きました。1本{cur,￥}{c1,150}の{obj1,ペン}を{n1,4}本、1冊{cur,￥}{c2,400}の{obj2,ノート}を{n2,2}冊、そして{cur,￥}{c3,2000}の用紙を1パック買いました。{name,あい}は全部でいくら使いましたか？\n\n#init:\n- name = sample(names_male)\n- obj1 = sample([\"鉛筆\", \"クレヨン\", \"色鉛筆\", \"マーカー\", \"ペン\", \"シャープペン\"])\n- obj2 = sample([\"ノート\", \"教科書\", \"フォルダー\", \"バインダー\"])\n- cur = sample(currencies_sym)\n- $n1 = range(4, 25, 2)\n- $c1 = arange(150, 1000, 50)\n- $n2 = range(2, 15, 2)\n- $c2 = arange(400, 2000, 100)\n- $c3 = range(1000, 2500, 100)\n\n#conditions:\n- is_int(n1 * c1)\n- is_int(n2 * c2)\n#answer: int(n1*c1 + n2*c2 + c3)",
+    "count": 100
+  },
+  {
+    "id": 19,
+    "question_annotated": "{n,60}問のクイズのうち問題の{p1,40}%は{s1,簡単}のであり、残りは{s2,普通}の問題と{s3,難しい}のに等しく分けられています。{name,まさる}が{s1,簡単}な問題の{r1,75}%は確実に正解でき、{s2,普通}の問題と{s3,難しい}問題は{frac_txt,半分}を正解できるとすると、確実には何点取れますか？\n\n#init:\n- s1, s2, s3 = sample([\"歴史\", \"地理\", \"生物\", \"化学\", \"物理\", \"経済\", \"文学\", \"代数\", \"幾何\" ], 3)\n- name = sample(names)\n- frac_txt, frac_val = sample(fraction_alnum)\n- $p1 = range(5, 71, 5)\n- $r1 = range(5, 101, 5)\n- $n = range(10, 151, 10)\n\n#conditions:\n- is_int(n * (p1/100))\n- is_int(n * (p1/100) * (r1/100))\n- is_int(n*(1-(p1/100))*frac_val)\n\n#answer: int(n * (p1/100) * (r1/100)) + int(n*(1-(p1/100))*frac_val)",
+    "count": 100
+  },
+  {
+    "id": 20,
+    "question_annotated": "{name,ひかり}は{d1,水曜日}に{fruit,桃}を{n1,4}個収穫します。次に、{d2,木曜日}に{fruit,桃}を{n2,6}個収穫します。{d3,金曜日}には、{d1,水曜日}に取った数の{mult_txt,3倍}の{fruit,桃}を収穫します。{name,ひかり}は全部で何個の{fruit,桃}を持っていますか？\n\n#init:\n- name = sample(names)\n- d1, d2, d3 = sample_sequential(weekdays, 3)\n- fruit = sample(fruits)\n- $n1 = range(30, 400)\n- $n2 = range(50, 400)\n- mult_txt, mult_val = sample(multi_times)\n\n#answer: n1 + n2 + mult_val * n1",
+    "count": 100
   }
 ]
