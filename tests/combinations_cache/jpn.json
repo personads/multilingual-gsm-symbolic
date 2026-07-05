@@ -103,5 +103,80 @@
     "id": 20,
     "question_annotated": "{name,ひかり}は{d1,水曜日}に{fruit,桃}を{n1,4}個収穫します。次に、{d2,木曜日}に{fruit,桃}を{n2,6}個収穫します。{d3,金曜日}には、{d1,水曜日}に取った数の{mult_txt,3倍}の{fruit,桃}を収穫します。{name,ひかり}は全部で何個の{fruit,桃}を持っていますか？\n\n#init:\n- name = sample(names)\n- d1, d2, d3 = sample_sequential(weekdays, 3)\n- fruit = sample(fruits)\n- $n1 = range(30, 400)\n- $n2 = range(50, 400)\n- mult_txt, mult_val = sample(multi_times)\n\n#answer: n1 + n2 + mult_val * n1",
     "count": 100
+  },
+  {
+    "id": 21,
+    "question_annotated": "{name,さとる}は毎晩、宿題を終えたらテレビを見ます。{d1,月曜日}と{d2,火曜日}には、お気に入りの番組を{h1,1}時間見ました。{d3,水曜日}には、{m1,30}分の番組を何本か見ました。{d4,木曜日}には、宿題を早く終えたので、{h2,1}時間の番組を1本と{m2,30}分の番組を1本ずつ見ました。{d5,金曜日}には、夜更かししてもよかったので、{h3,1}時間の番組を{n2_txt,2}本見ました。全部で{total,7}時間テレビを見たとすると、{d3,水曜日}には{m1,30}分の番組を何本見ましたか？\n\n#init:\n- name = sample(names)\n- d1, d2, d3, d4, d5 = sample_sequential(weekdays, 5)\n- $total = range(7, 33)\n- $h1 = range(1, 7)\n- $h3 = range(1, 6)\n- $m1 = range(5, 61, 5)\n- $m2 = range(5, 61, 5)\n- $h2 = range(1, 7)\n- n2_txt, n2_val = range_str(2, 5, 1, numbers)\n\n#conditions: \n- divides(m1, 15)\n- divides(m2, 15)\n- divides(total * 60 - 2* h1 * 60 - h2 * 60 - m2 - n2_val* h3 * 60, m1)\n- (total * 60 - 2* h1 * 60 - h2 * 60 - m2 - n2_val* h3 * 60)/m1 > 0\n- (total * 60 - 2* h1 * 60 - h2 * 60 - m2 - n2_val* h3 * 60)/m1 < 8 \n\n#answer: int((total * 60 - 2* h1 * 60 - h2 * 60 - m2 - n2_val* h3 * 60)/m1)",
+    "count": 100
+  },
+  {
+    "id": 22,
+    "question_annotated": "{name,はるこ}は自宅での{event,ディナーパーティー}の準備をしていて、{food,シチュー}を出すつもりでした。使い捨ての{obj,スプーン}がなくなっていることに気づいたので、新しい{obj,スプーン}のパックを買いました。その後、夫も新しい{obj,スプーン}{n1,5}本入りのパックを買って、{name,はるこ}に渡しました。{name,はるこ}が{food,シチュー}を作っている間、味見をするために{obj,スプーン}を{n2_txt,3}本使いました。その後、食卓の準備をしようとしたとき、{obj,スプーン}は全部で{total,12}本ありました。{name,はるこ}が買ったパックには{obj,スプーン}が何本入っていましたか？\n\n#init:\n- name = sample(names)\n- event = sample([\"ランチパーティー\", \"誕生日パーティー\", \"持ち寄りパーティー\", \"ベビーシャワー\"])\n- food = sample([\"お味噌汁\", \"ハヤシライス\", \"シチュー\", \"カレー\", \"コーンスープ\", \"鍋\", \"たこ焼き\", \"そうめん\"])\n- obj = sample([\"スプーン\", \"フォーク\", \"レンゲ\", \"お箸\"])\n- $n1 = range(5, 20)\n- n2_txt, n2_val = range_str(3, 10, 1, numbers)\n- $total = range(12, 40)\n\n#conditions:\n- total+n2_val-n1 > 0\n\n#answer: total+n2_val-n1",
+    "count": 100
+  },
+  {
+    "id": 23,
+    "question_annotated": "{name,りょう}は{count,3}人の孫のために冬物を編んでいます。{children,三つ子}なので、全員同じサイズです。1人ひとりに{c1,帽子}、{c2,マフラー}、{c3,セーター}、{c4,ミトン}、{c5,靴下}を作りたいと思っています。{c1,帽子}を1つ作るのに毛糸が{n1,2}玉、{c2,マフラー}には{n2,4}玉、{c3,セーター}には{n3,12}玉、{c4,ミトン}1組には{n4,1}玉、{c5,靴下}1組には{n5,2}玉必要です。毛糸を全部で何玉買う必要がありますか？\n\n#init:\n- name = sample(names)\n- c1, c2, c3 = sample([\"セーター\", \"マフラー\", \"帽子\", \"カーディガン\", \"ポンチョ\", \"ベスト\", \"ニット帽\"],3)\n- c4, c5 = sample([ \"ミトン\", \"ベビーシューズ\", \"靴下\",  \"ストッキング\", \"手袋\"], 2)\n- n1, n2, n3, n4, n5 = sample(range_list(3, 19), 5)\n- children, count = sample([(\"双子\",2), (\"三つ子\",3), (\"四つ子\", 4),  (\"五つ子\", 5)])\n\n#answer: count*(n1+n2+n3+n4+n5)",
+    "count": 100
+  },
+  {
+    "id": 24,
+    "question_annotated": "栄養成分表示によると、{food,ポテトチップス}1食分には{cal,250}カロリーあります。{size,300}{unit,グラム}入りの袋には{n,5}食分入っています。1日のカロリー目標が{total,2000}で、すでに{spent,1800}カロリー摂取しているとすると、あと何{unit,グラム}食べられますか？\n\n#init:\n- food = sample([\"ポップコーン\", \"パン\",  \"クッキー\"])\n- unit = sample([\"グラム\", \"g\"])\n- $cal = range(150, 500, 25)\n- $size = range(100, 400, 25)\n- $n = range(4, 8)\n- $total = range(1900, 2500, 5)\n- $spent = range(600, 1900, 25)\n\n#conditions:\n- spent < total\n- is_int( 5 * (total - spent) / cal)\n- divides(size, n)\n- divides(size//n, (total-spent)/cal)\n\n#answer: size//n * Fraction((total-spent)/cal)",
+    "count": 100
+  },
+  {
+    "id": 25,
+    "question_annotated": "{teacher,おおせき先生}が担当しているクラスでは、合計{total,30}人の生徒のうち{p1,20}%が{group1,ラグビー}部に入ってます。残りの生徒のうち、{p2,25}%が{group2,サッカー}または{group3,柔道}部の部員です。これら3つの部員である生徒は、今日、{event,試合}に参加するために早退する必要があります。早退する生徒は何人ですか？\n\n#init:\n- teacher = sample(['おおせき先生', 'やまだ先生', 'まえだ先生', 'いいじま先生'])\n- group1 = sample(['サッカー', 'バスケ', 'バレー', '水泳'])\n- group2, group3 = sample(['ダンス', '合唱', 'ロボット', '柔道'],  2)\n- event = sample(['試合', '大会', '全国大会'])\n- $total = range(20, 150)\n- $p1 = range(10, 50)\n- $p2 = range(15, 45)\n\n#conditions:\n- p1 < 100\n- p2 < 100\n- is_int(total * p1 / 100)\n- is_int((total - total * p1 / 100) * p2 / 100)\n\n#answer: int(total * p1 / 100 + (total - total * p1 / 100) * p2 / 100)",
+    "count": 100
+  },
+  {
+    "id": 26,
+    "question_annotated": "{name1,ある男性}は1{time_unit,日}に{food,サンドイッチ}を{n1,5}個食べ、{name2,妻}は1{time_unit,日}に{food,サンドイッチ}を{n2,4}個食べ、{relation,息子}は1{time_unit,日}に{food,サンドイッチ}を{n3,2}個食べます。この家族は1{time_period,週間}で{food,サンドイッチ}を何個食べますか？\n\n#init:\n- name1 = sample([\"ある父親\", \"あるおじいさん\"])\n- name2 = sample([\"妻\", \"彼のパートナー\", \"パートナー\"])\n- relation = sample([\"子供\", \"娘\", \"息子\", \"孫\"])\n- food = sample([\"おにぎり\", \"おむすび\", \"あんぱん\", \"ハンバーガー\"])\n- time_unit = sample([\"日\"])\n- time_period = sample([\"週間\"])\n- $n1 = range(2, 9)\n- $n2 = range(2, 9)\n- $n3 = range(2, 9)\n\n#answer: (n1 + n2 + n3) * (7 if time_period == \"week\" else 30)",
+    "count": 100
+  },
+  {
+    "id": 27,
+    "question_annotated": "{name,しょうた}は1日に{n,80}通のメールを受け取ります。そのうち{p,20}%は返信の必要がありません。残りには返信します。{d,5}日間の勤務週で、{name,しょうた}は何通のメールに返信しますか？\n\n#init:\n- name = sample(names)\n- $n = range(50, 200)\n- $p = range(5, 40)\n- $d = range(3, 7)\n\n#conditions:\n- is_int(n * p / 100)\n- is_int(n * (100 - p) / 100)\n\n#answer: d * (n * (100 - p) / 100)",
+    "count": 100
+  },
+  {
+    "id": 28,
+    "question_annotated": "ある{facility,病院}には{total,1000}{item,床}の収容能力があり、そのうち{frac,1/5}が使用されています。{event,新型コロナウイルスの流行}により、毎日{daily,50}人の患者がその{facility,病院}に入院します。{period,2}週間後、その{facility,病院}の空{item,床}の総数を求めなさい。\n\n#init:\n- facility = sample([\"病院\", \"診療所\", \"医療センター\", \"介護施設\"])\n- item = sample([\"床\", \"部屋\"])\n- event = sample([\"インフルエンザの流行\", \"災害\", \"大事故\", \"新型コロナウイルスの流行\"])\n- $total = range(500, 2000, 100)\n- $frac = sample(fractions)\n- $daily = range(20, 100, 5)\n- $period = range(2, 5)\n\n#conditions:\n- is_int(total * frac)\n- total * frac + daily * period * 7 < total\n\n#answer: total - (total * frac + daily * period * 7)",
+    "count": 100
+  },
+  {
+    "id": 29,
+    "question_annotated": "{name1,ひでこ}は{age1,14}歳です。{years,4}年後、{relation_type,妹}の{name2,ゆきこ}は今の{name1,ひでこ}の{mult_txt,3倍}の年齢になります。{name2,ゆきこ}は今何歳ですか？\n\n#init:\n- name1 = sample(names)\n- name2 = sample(names_female)\n- relation_type = sample(['妹', 'いとこ'])\n- $age1 = range(8, 25)\n- years = range(2, 10)\n- mult_txt, mult_val = sample(multi_times)\n\n#conditions:\n- age1 * mult_val - years > 0\n\n#answer: age1 * mult_val - years",
+    "count": 100
+  },
+  {
+    "id": 30,
+    "question_annotated": "{name,さかえ}は{cur,￥}{initial_amount,1200}持っていて、{store_type,金物}店から{item,ねじ}を{quantity,16}本買いたいと思っています。{item,ねじ}1本の値段は{cur,￥}{unit_price,30}です。{item,ねじ}の代金を払ったあと、{name,さかえ}の手元にはいくら残りますか？\n\n#init:\n- name = sample(names)\n- cur = sample(currencies_sym)\n- item = sample([\"ねじ\", \"くぎ\", \"ナット\"])\n- store_type = sample([\"金物\", \"住宅改修\", \"建設資材\"])\n- $quantity = range(15, 60)\n- $initial_amount = range(100, 1300, 100)\n- $unit_price = range(5, 100, 5)\n\n#conditions:\n- initial_amount > quantity * unit_price\n- round(initial_amount - quantity * unit_price) > 0\n- int(quantity * unit_price * 1000) % 10 == 0\n- is_int((initial_amount - quantity * unit_price))\n\n#answer: round(initial_amount - quantity * unit_price)",
+    "count": 100
+  },
+  {
+    "id": 31,
+    "question_annotated": "{name1,ふみこ}と{name2,さおり}の年齢差は現在{age_diff,16}歳です。{name2,さおり}より年下の{name1,ふみこ}が{age1,40}歳だとすると、2人の年齢の平均は何歳ですか？\n\n#init:\n- name1, name2 = sample(names, 2)\n- $age_diff = range(5, 30)\n- $age1 = range(15, 75)\n\n#conditions:\n- is_int((2*age1 + age_diff) / 2)\n\n#answer: (2*age1 + age_diff) // 2",
+    "count": 100
+  },
+  {
+    "id": 32,
+    "question_annotated": "{name, やまだ夫人}は、予算の￥{budget, 40000000}を超えない{property_type, 家}を探しています。彼女は、販売価格が￥{price, 35000000}の物件を見つけました。さらに、買い手は販売価格の{brokerage_fee, 5}%の仲介手数料と、販売価格の{transfer_fee, 12}%の名義変更手数料も支払わなければなりません。{property_type, 家}の合計金額は、{name, やまだ夫人}の予算よりいくら高いですか？\n\n#init:\n- name = sample(family_names)\n- property_type = sample(['家', 'アパート', 'マンション', '物件', '不動産'])\n- $budget = range(30000000, 50000000, 1000000)\n- $price = range(25000000, 45000000, 1000000)\n- $brokerage_fee = range(3, 8)\n- $transfer_fee = range(10, 15)\n\n#conditions:\n- brokerage_fee < 100\n- transfer_fee < 100\n- price < budget\n- price + price*brokerage_fee/100 + price*transfer_fee/100 > budget + 1\n- is_int(price * brokerage_fee / 100)\n- is_int(price * transfer_fee / 100)\n\n#answer: int(price + price*brokerage_fee/100 + price*transfer_fee/100 - budget)",
+    "count": 100
+  },
+  {
+    "id": 33,
+    "question_annotated": "{city,長野}出身の姉妹、{name1,れな}と{name2,みさき}は、{celebrity_type,有名人}のサインを集めるのが大好きです。学校の{vacation_type,夏休み}の間、姉妹は毎日午後にサイン集めをしています。{n1_txt,5}週間後、{name1,れな}と{name2,みさき}はそれぞれが集めたサインを数えるためにサイン帳を見比べました。{name1,れな}のサイン帳には{s1,20}個のサインがあり、{name2,みさき}のサイン帳には{s2,44}個あります。姉妹には{vacation_type,夏休み}があと{n2_txt,3}週間あり、休みの終わりまでに2人合わせて{goal,100}個のサインを集めたいと考えています。目標に達するには、姉妹はあと何個のサインを集める必要がありますか？\n\n#init:\n- name1, name2 = sample(names_female, 2)\n- city = sample(cities)\n- celebrity_type = sample([\"俳優\", \"野球選手\", \"歌手\", \"サッカー選手\", \"作家\"])\n- vacation_type = sample([\"冬休み\", \"春休み\", \"夏休み\", \"秋休み\"])\n- n1_txt, n1_val = range_str(3, 8, 1, numbers)\n- n2_txt, n2_val = range_str(2, 5, 1, numbers)\n- $s1 = range(15, 40)\n- $s2 = range(30, 60)\n- $goal = range(90, 150, 5)\n\n#conditions:\n- s1 + s2 < goal\n\n#answer: goal - (s1 + s2)",
+    "count": 100
+  },
+  {
+    "id": 34,
+    "question_annotated": "{name,まえだ}さんは{property,家}を{cur,￥}{price, 40000000}で売却しました。売却価格の{fee1_percent,3}%にあたる{fee1_name,名義変更}手数料を支払い、さらに売却価格の{fee2_percent,5}%にあたる{fee2_name,仲介}手数料も支払いました。さらに、その{property,家}の残っていたローン残高として{cur,￥}{loan, 25000000}を支払ったとすると、{name,まえだ}さんの{property,家}の売却による手取り額はいくらですか？\n\n#init:\n- name = sample(family_names)\n- property = sample(['家', 'アパート', 'マンション', '物件', '不動産'])\n- fee1_name = sample(['名義変更', '登記', '法的'])\n- fee2_name = sample(['仲介'])\n- cur = sample(currencies_sym)\n- $price = range(20000000, 100000000, 1000000)\n- $fee1_percent = range(1, 5)\n- $fee2_percent = range(2, 7)\n- $loan = range(10000000, 70000000, 1000000)\n\n#conditions:\n- price > loan\n- price - (price * (fee1_percent + fee2_percent) / 100 + loan) > 1\n\n#answer: price - (price * (fee1_percent + fee2_percent) / 100 + loan)",
+    "count": 100
+  },
+  {
+    "id": 35,
+    "question_annotated": "{name,みどり}は{event,修学旅行}のためのお金を集めています。{organization,学校}に援助を申請したところ、{organization,学校}は{event,修学旅行}の費用の{fraction_txt,半分}を負担することに決めました。{name,みどり}が{cur,￥}{current, 5000}持っていて、{event,修学旅行}に{cur,￥}{total, 30000}かかる場合、{name,みどり}はいくら不足していますか？\n\n#init:\n- name = sample(names)\n- event = sample([\"修学旅行\", \"校外学習\", \"スポーツ大会\", \"音楽祭\", \"科学フェア\"])\n- cur = sample(currencies_sym)\n- organization = sample([\"学校\", \"地域センター\", \"地元の慈善団体\", \"保護者会\"])\n- fraction_txt, fraction_val = sample(fraction_alnum)\n- $current = range(1000, 20000, 500)\n- $total = range(20000, 100000, 1000)\n\n#conditions:\n- total > current\n- total - (total * fraction_val + current) > 0\n- is_int(total * fraction_val)\n- is_int(total - (total * fraction_val + current))\n\n#answer: total - (total * fraction_val + current)",
+    "count": 100
   }
 ]
