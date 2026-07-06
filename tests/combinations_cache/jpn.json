@@ -81,7 +81,7 @@
   },
   {
     "id": 16,
-    "question_annotated": "{name, のぞみ}は資金集めのために{food,クッキー}と{fruit,アップル}パイを売っています。{d1,土曜日}には、{food,クッキー}が{n1,10}箱売れて、{fruit,アップル}パイは{d2,日曜日}より{m1,4}箱少なく売れました。{d2,日曜日}には、{fruit,アップル}パイを{m2,15}箱売り、{d1,土曜日}より{food,クッキー}を{n2,5}箱多く売れました。{food,クッキー}の値段が￥{cn,60}で、{fruit,アップル}パイ一個の値段が￥{cm,1500}だとすると、{name, のぞみ}はこの2日間でいくら稼ぎましたか？\n\n#init:\n- name = sample(names)\n- fruit = sample(fruits)\n- cur = sample(currencies_sym)\n- food = sample([\"クッキー\", \"ブラウニー\", \"マフィン\", \"カップケーキ\"])\n- d1, d2 = sample_sequential(weekdays, 2)\n- $n1 = range(21, 30)\n- $n2 = range(11, 15)\n- $m1 = range(4, 20)\n- $m2 = range(15, 30)\n- $cn = range(50, 200, 10)\n- $cm = range(500, 2000, 100)\n\n#conditions:\n- m1 < m2\n\n#answer: (2*n1+n2)*cn + (2*m2-m1)*cm",
+    "question_annotated": "{name, のぞみ}は資金集めのために{food,クッキー}と{fruit,アップル}パイを売っています。{d1,土曜日}には、{food,クッキー}が{n1,10}箱売れて、{fruit,アップル}パイは{d2,日曜日}より{m1,4}箱少なく売れました。{d2,日曜日}には、{fruit,アップル}パイを{m2,15}箱売り、{d1,土曜日}より{food,クッキー}を{n2,5}箱多く売れました。{food,クッキー}の値段が{cur,￥}{cn,60}で、{fruit,アップル}パイ一個の値段が{cur,￥}{cm,1500}だとすると、{name, のぞみ}はこの2日間でいくら稼ぎましたか？\n\n#init:\n- name = sample(names)\n- fruit = sample(fruits)\n- cur = sample(currencies_sym)\n- food = sample([\"クッキー\", \"ブラウニー\", \"マフィン\", \"カップケーキ\"])\n- d1, d2 = sample_sequential(weekdays, 2)\n- $n1 = range(21, 30)\n- $n2 = range(11, 15)\n- $m1 = range(4, 20)\n- $m2 = range(15, 30)\n- $cn = range(50, 200, 10)\n- $cm = range(500, 2000, 100)\n\n#conditions:\n- m1 < m2\n\n#answer: (2*n1+n2)*cn + (2*m2-m1)*cm",
     "count": 100
   },
   {
@@ -402,6 +402,101 @@
   {
     "id": 80,
     "question_annotated": "自動販売機で、{cur,￥}{price1,150}の{item1,ポカリスエット}と{cur,￥}{price2,180}の{item2,ほうじ茶}が売られています。{name,のりゆき}は{cur,￥}{total,5000}を使い、{item1,ポカリスエット}を{n1,3}本買ったところ、おつりとして所持金の{p,1}%が残りました。彼は{item2,ほうじ茶}を何本買いましたか？\n\n#init:\n- name = sample(names_male)\n- item1, item2 = sample(['ポカリスエット', '煎茶', 'ほうじ茶', '緑茶', '烏龍茶', '午後の紅茶'], 2)\n- cur = sample(currencies_sym)\n- $price1 = range(100, 200, 10)\n- $price2 = range(100, 200, 10)\n- $total = range(1000, 10000, 1000)\n- $n1 = range(1, 10)\n- $p = range(1, 10)\n\n#conditions:\n- price2 > price1\n- is_int(total * p / 100)\n- total * (100 - p) > n1 * price1\n- (total * (100 - p) - n1 * price1) % price2 == 0\n\n#answer: int((total * (100 - p) - n1 * price1) / price2)",
+    "count": 100
+  },
+  {
+    "id": 81,
+    "question_annotated": "{event,宝探し}のチームは{total,100}個の{item,ヒント}を隠しました。{family,いそぬま}家の双子はそれぞれ{n,30}個の{item,ヒント}を見つけました。残りの{item,ヒント}のうち、{m,10}個を除いたすべてを友だちが見つけました。友だちは何個の{item,ヒント}を見つけましたか？\n\n#init:\n- event = sample([\"宝探し\", \"エスケープルーム\"])\n- item = sample([\"ヒント\", \"宝\", \"おもちゃ\", \"コイン\", \"トークン\", \"ボール\"])\n- family = sample(family_names)\n- $total = range(50, 201, 10)\n- $n = range(10, 51)\n- $m = range(5, 21)\n\n#conditions:\n- 2*n + m < total\n\n#answer: total - 2*n - m",
+    "count": 100
+  },
+  {
+    "id": 82,
+    "question_annotated": "{event,パーティー}に、{group1,先生}が{m,25}人、{group2,学生}が{w,15}人参加しました。{t,1時間}後、{frac,1/4}が帰りました。{m_left,22}人の{group1,先生}が{event,パーティー}に残ったとすると、残った{group2,学生}は何人ですか？\n\n#init:\n- event = sample(['パーティー', '会議', '学会', '合宿', 'お祝い'])\n- group1, group2 = sample([ \"先生\", \"学生\", \"教授\", \"親\", \"生徒\"], 2)\n- t = sample(['1時間', '2時間', '30分', '45分'])\n- $frac = sample(fractions)\n- $m = range(20, 75)\n- $w = range(10, 80)\n- $m_left = range(15, 35)\n\n#conditions:\n- m_left < m\n- is_int((m + w) * frac)\n- (m + w) * (1-frac) > m_left\n- m + w - (m + w) * frac > m_left\n\n#answer: m + w - int((m + w) * frac) - m_left",
+    "count": 100
+  },
+  {
+    "id": 83,
+    "question_annotated": "{family,さとう}家は{item,クッキー}作りに忙しいです。これまで{total,7995}枚の{item,クッキー}を作りました。{flavor1,抹茶}{item,クッキー}が{n1,2595}枚、{flavor2,いちご}{item,クッキー}が{n2,3075}枚、そして{flavor3,チョコ}{item,クッキー}が何枚かあります。{flavor3,チョコ}{item,クッキー}は何枚作りましたか？\n\n#init:\n- family = sample(family_names)\n- item = sample([\"クッキー\", \"サブレ\", \"ビスケット\"])\n- flavor1, flavor2, flavor3 = sample([\"いちご\", \"ブルーベリー\", \"抹茶\", \"チョコ\", \"きな粉\"], 3)\n- $total = range(4995, 10000, 25)\n- $n1 = range(995, 3000, 50)\n- $n2 = range(1075, 3200, 50)\n\n#conditions:\n- n1 + n2 < total\n\n#answer: total - (n1 + n2)",
+    "count": 100
+  },
+  {
+    "id": 84,
+    "question_annotated": "{name,しずか}は1株あたり{cur,￥}{p,800}で、ある会社の株を{n,8}株買いました。{name,しずか}がその株を保有した1年目に株価は{r1,50}%上がり、2年目には{r2,25}%下がりました。{name,しずか}が保有する株の最終的な価値はいくらですか？\n\n#init:\n- name = sample(names)\n- cur = sample(currencies_sym)\n- $n = range(5, 20)\n- $p = range(500, 10000, 100)\n- $r1 = range(10, 100, 5)\n- $r2 = range(5, 50, 5)\n\n#conditions:\n- is_int(n * p * r1/100)\n- is_int(n * p * (1 + r1/100) * (1 - r2/100))\n\n#answer: int(n * p * (1 + r1/100) * (1 - r2/100))",
+    "count": 100
+  },
+  {
+    "id": 85,
+    "question_annotated": "{name1,てつや}と{name2,ひでき}が合わせて{total,100}{unit,センチ}の柵を持っていて、{name2,ひでき}が{name1,てつや}より{diff,60}{unit,センチ}多くの柵をもらうとします。{name1,てつや}の分は何{unit,センチ}残りますか？\n\n#init:\n- name1, name2 = sample(names, 2)\n- unit = sample([\"センチ\", \"メートル\"])\n- $total = range(100, 1000, 20)\n- $diff = range(20, 200, 10)\n\n#conditions:\n- total - diff > 10\n- is_int((total - diff) / 2)\n\n#answer: (total - diff) // 2",
+    "count": 100
+  },
+  {
+    "id": 86,
+    "question_annotated": "{name,すみれ}は{sport,ランニング}チームのメンバーに選ばれたので、運動用品を買いに行きました。{item1,タンクトップ}を{cur,￥}{p1,1000}で、あと{sport,ランニング}用{item2,ショーツ}を{item1,タンクトップ}より{cur,￥}{p2,500}高い値段で買いました。元値{cur,￥}{p3,4800}の{item3,テニスシューズ}がセールで{frac_txt,半分}の値段になっていたので、それも買いました。さらに、{cur,￥}{p4,800}のスポーツ{item4,ソックス}も{cur,￥}{d,200}引きのクーポンを使って購入しました。{name,すみれ}は運動用品に全部でいくら使いましたか？\n\n#init:\n- name = sample(names)\n- sport = sample([\"サイクリング\", \"野球\", \"サッカー\", \"バレーボール\"])\n- item1 = sample([\"Tシャツ\", \"ジャージ\"])\n- item2 = sample([\"ショーツ\", \"ズボン\"])\n- item3 = sample([\"スニーカー\", \"靴\", \"運動靴\"])\n- item4 = sample([\"ソックス\", \"ヘッドバンド\", \"靴下\"])\n- cur = sample(currencies_sym)\n- frac_txt, frac_val = sample(fraction_alnum)\n- $p1 = range(800, 2500, 100)\n- $p2 = range(300, 1500, 100)\n- $p3 = range(300, 8000, 100)\n- $p4 = range(500, 1500, 100)\n- $d = range(100, 600, 100)\n\n#conditions:\n- is_int(p3*frac_val)\n- p3 % 2 == 0\n- p4 > d\n\n#answer: p1 + (p1 + p2) + (p3 * frac_val) + (p4 - d)",
+    "count": 100
+  },
+  {
+    "id": 87,
+    "question_annotated": "{park_name,よみうりランド}の一番大きいウォータースライダーは長さ{l1,300}{unit,メートル}で、毎分{s1,60}{unit,メートル}の速さで滑り降りられます。2番目に大きいウォータースライダーは長さ{l2,240}{unit,メートル}ですが、より急なので、毎分{s2,80}{unit,メートル}の速さで滑り降りれます。一番大きいスライダーは、2番目に大きいスライダーと比べて乗るのに何分長くかかりますか？\n\n#init:\n- park_name = sample([\"よみうりランド\", \"芝政ワールド\", \"ユネッサン\", \"トロピカルランド\"])\n- unit = sample(['メートル'])\n- $l1 = range(250, 401, 10)\n- $l2 = range(200, 301, 10)\n- $s1 = range(40, 81, 5)\n- $s2 = range(60, 101, 5)\n\n#conditions:\n- l1 > l2\n- s2 > s1\n- is_int(l1/s1)\n- is_int(l2/s2)\n- l1/s1 > l2/s2\n\n#answer: l1/s1 - l2/s2",
+    "count": 100
+  },
+  {
+    "id": 88,
+    "question_annotated": "{name,ももか}は歩く時の{mult_run_txt,4倍}の速さで走ることができますが、スキップする速さは走る速さの{frac_skip_txt,半分}です。もしスキップする速さが時速{skip_speed,3}キロメートルなら、{total_time_txt,6}時間のうち{frac_run_txt,3分の1}を走り、{frac_walk_txt,3分の2}を歩いた場合、全部で何キロメートル進むことができますか？\n\n#init:\n- name = sample(names)\n- mult_run_txt, mult_run_val = sample(multi_times)\n- frac_skip_txt, frac_skip_val = sample(fraction_alnum)\n- $skip_speed = range(2, 10)\n- total_time_txt, total_time_val = range_str(4, 12, 2, numbers)\n- frac_run_txt, frac_run_val = sample(fraction_alnum)\n- frac_walk_txt, frac_walk_val = sample(fraction_alnum)\n\n#conditions:\n- frac_run_val + frac_walk_val == 1\n- skip_speed / frac_skip_val < 13\n- is_int(total_time_val * frac_walk_val * (skip_speed / frac_skip_val / mult_run_val))\n- is_int(skip_speed / frac_skip_val)\n- is_int(total_time_val * frac_run_val)\n- is_int(total_time_val * frac_walk_val)\n\n#answer: int((total_time_val * frac_run_val * (skip_speed / frac_skip_val)) + (total_time_val * frac_walk_val * (skip_speed / frac_skip_val / mult_run_val)))",
+    "count": 100
+  },
+  {
+    "id": 89,
+    "question_annotated": "{name,きよし}は午後{start_time,5}時から午後{end_time,9}時まで{vehicle,馬車}を借ります。最初の{free_hours,1}時間は無料です。2時間目は{cur,￥}{first_hour_cost,1500}で、その後の1時間毎の値段はその{multiplier_txt,2倍}です。{name,きよし}はいくら支払いましたか？\n\n#init:\n- name = sample(names)\n- vehicle = sample([\"馬車\", \"人力車\", \"高級車\"])\n- $start_time = range(1, 8)\n- $end_time = range(3, 12)\n- $free_hours = range(1, 3)\n- cur = sample(currencies_sym)\n- $first_hour_cost = range(1000, 5100, 100)\n- multiplier_txt, multiplier_val = sample(multi_times)\n\n#conditions:\n- end_time - start_time > free_hours + 1\n- is_int((end_time - start_time - free_hours - 1) * first_hour_cost * multiplier_val)\n\n#answer: first_hour_cost + (end_time - start_time - free_hours - 1) * first_hour_cost * multiplier_val",
+    "count": 100
+  },
+  {
+    "id": 90,
+    "question_annotated": "{name1,ひろむ}の{platform,LINE}の友達の数は、{name2,ゆういち}の{mult1_txt,3倍}です。{name3,ゆづき}の{platform,LINE}の友達の数は、{name2,ゆういち}の{mult2_txt,4倍}です。{name1,ひろむ}の{platform,LINE}の友達が{n,12}人なら、{name3,ゆづき}の{platform,LINE}の友達は何人ですか？\n\n#init:\n- name1, name2, name3 = sample(names, 3)\n- platform = sample([\"インスタ\", \"ツイッター\", \"LINE\", \"X\"])\n- mult1_txt, mult1_val = sample(multi_times)\n- mult2_txt, mult2_val = sample(multi_times)\n- $n = range(10, 201)\n\n#conditions:\n- mult2_val != mult1_val\n- is_int(n / mult1_val)\n\n#answer: int((n / mult1_val) * mult2_val)",
+    "count": 100
+  },
+  {
+    "id": 91,
+    "question_annotated": "{name,かなた}の家には{food2,柿}が{n,40}個あります。{food2,柿}の{mult_txt,2倍}の数の{food1,トマト}があります。{name,かなた}はさらに{food2,柿}を{m,60}個買い、それより{k,40}個少ない数の{food1,トマト}を買いました。{name,かなた}の家にある{food1,トマト}と{food2,柿}の合計は何個ですか？\n\n#init:\n- name = sample(names_male)\n- food1, food2 = sample([\"トマト\", \"りんご\", \"バナナ\", \"オレンジ\", \"梨\", \"ぶどう\", \"いちじく\", \"柿\", \"梅干し\"], 2)\n- mult_txt, mult_val = sample(multi_times)\n- $n = range(20, 100)\n- $m = range(30, 100)\n- $k = range(10, 50)\n\n#conditions:\n- m > k\n\n#answer: mult_val*n + n + m + (m-k)",
+    "count": 100
+  },
+  {
+    "id": 92,
+    "question_annotated": "{name1,タデウス}王子は強力な{weapon1,剣}で{n1,100}匹の{creature,龍}を倒しました。一方、{name2,アーサー}王子は{weapon2,槍}を使って、{name1,タデウス}王子が倒した数の{frac1_txt,4分の3}の{creature,龍}を倒しました。さらに、{name3,ウォルター}王子は{weapon3,さびた鉄の斧}を使って、{name2,アーサー}王子の{mult1_txt,2倍}の数の{creature,龍}を倒しました。しかし、{name4,ブルース}王子は{weapon4,剣}を家に忘れてしまったため、{weapon5,爪やすり}を使って{name3,ウォルター}王子が倒した数の{frac2_txt,5分の1}の{creature,龍}を倒しました。{name4,ブルース}王子は何匹の{creature,龍}を倒しましたか？\n\n#init:\n- name1, name2, name3, name4 = sample([\"タデウス\", \"アーサー\", \"ウォルター\", \"ブルース\", \"アレクサンダー\", \"ウィリアム\", \"ジョージ\", \"ヘンリー\", \"エドワード\", \"フレデリック\"], 4)\n- creature = sample([\"龍\", \"鬼\", \"ゴブリン\", \"巨人\"])\n- weapon1 = sample([\"剣\", \"メイス\", \"戦斧\", \"ウォーハンマー\"])\n- weapon2 = sample([\"槍\", \"ランス\", \"投げ槍\", \"ハルバード\"])\n- weapon3 = sample([\"さびた鉄の斧\", \"木のこん棒\", \"石のハンマー\", \"骨の短剣\"])\n- weapon4 = sample([\"剣\", \"斧\", \"メイス\", \"ハンマー\"])\n- weapon5 = sample([\"爪やすり\", \"バターナイフ\", \"木のスプーン\", \"羽\"])\n- $n1 = range(50, 501, 50)\n- frac1_txt, frac1_val = sample(fraction_alnum)\n- mult1_txt, mult1_val = sample(multi_times)\n- frac2_txt, frac2_val = sample(fraction_alnum)\n\n#conditions:\n- is_int(n1 * frac1_val)\n- is_int(n1 * frac1_val * mult1_val)\n- is_int(n1 * frac1_val * mult1_val * frac2_val)\n\n#answer: int(n1 * frac1_val * mult1_val * frac2_val)",
+    "count": 100
+  },
+  {
+    "id": 93,
+    "question_annotated": "水が冷たいとき、{name,みお}は1{unit,キロ}を{t1,16}分で泳ぎます。水が暖かいとき、1{unit,キロ}をその{mult_txt,2倍}の時間より{n,2}分遅く泳ぎます。暑い日に{d,3}{unit,キロ}泳ぐのは、寒い日に比べて何分長くかかりますか？\n\n#init:\n- name = sample(names)\n- unit = sample(['キロ', 'km'])\n- $t1 = range(10, 50)\n- $n = range(1, 10)\n- mult_txt, mult_val = sample(multi_times)\n- $d = range(2, 10)\n\n#conditions:\n- t1 < 60\n- n + mult_val * t1 < 60\n- d * (n + mult_val * t1) - d * t1 > 0\n\n#answer: d * (n + mult_val * t1) - d * t1",
+    "count": 100
+  },
+  {
+    "id": 94,
+    "question_annotated": "{n,100}人が{company,グーグル}に応募します。応募した人のうち、面接を受けられるのはわずか{p1,30}%です。面接を受けた人のうち、{p2,20}%が内定をもらいます。内定をもらった人のうち、{frac_txt,3分の1}がその内定を承諾します。何人が内定を承諾しますか？\n\n#init:\n- company = sample([\"グーグル\", \"アップル\", \"NEC\", \"パナソニック\", \"ソニー\", \"ソフトバンク\", \"NTT\"])\n- $n = range(100, 1001, 10)\n- $p1 = range(10, 51)\n- $p2 = range(10, 51)\n- frac_txt, frac_val = sample(fraction_alnum)\n\n#conditions:\n- is_int(n * (p1/100))\n- is_int(n * (p1/100) * (p2/100))\n- is_int(n * (p1/100) * (p2/100) * frac_val)\n\n#answer: int(n * (p1/100) * (p2/100) * frac_val)",
+    "count": 100
+  },
+  {
+    "id": 95,
+    "question_annotated": "{sport1,テニス}をする生徒が{n1,6}人いて、その{mult_txt,2倍}の人数が{sport2,バレーボール}をしています。{sport3,サッカー}をする男子が{n2,16}人、女子が{n3,22}人です。各生徒が1つの種類のスポーツにしか参加していないとすると、生徒は全部で何人いますか？\n\n#init:\n- sport1, sport2, sport3 = sample(['バスケ', 'バドミントン', '卓球',  'サッカー', 'バレー', '野球'], 3)\n- mult_txt, mult_var = sample(multi_times)\n- $n1 = range(4, 21)\n- $n2 = range(10, 31)\n- $n3 = range(10, 31)\n\n#conditions:\n- n1 * mult_var + n2 + n3 <= 250\n\n#answer: n1 + n1 * mult_var[1] + n2 + n3",
+    "count": 100
+  },
+  {
+    "id": 96,
+    "question_annotated": "{name,あおば}は誕生日パーティーの予算として{parent,親}から{cur,￥}{budget,9000}貰いました。{name,あおば}は、友だち全員と一緒に{activity1,ボーリング}をし、{activity2,ゲームセンター}で{cur,￥}{tokens,500}使い、{activity3,カラオケ}に{times,2}回乗れるようにしたいと思っています。{activity1,ボーリング}は{cur,￥}{cost1,500}かかり、{activity3,カラオケ}は1回{cur,￥}{cost2,1000}かかります。{name,あおば}は友だちを何人招待できますか？\n\n#init:\n- name = sample(names)\n- parent = sample([\"お母さん\", \"お父さん\", \"親\", \"両親\"])\n- activity1 = sample([\"ミニゴルフ\", \"ボーリング\", \"ダーツ\"])\n- activity2 = sample([\"ゲームセンター\", \"UFOキャッチャー\", \"卓球\"])\n- activity3 = sample([\"ゴーカート\", \"カラオケ\", \"ジェットコースター\"])\n- cur = sample(currencies_sym)\n- times = range(2, 6)\n- $budget = range(5000, 30100, 1000)\n- $tokens = range(300, 1100, 100)\n- $cost1 = range(300, 1100, 100)\n- $cost2 = range(500, 2100, 100)\n\n#conditions:\n- budget % (tokens + cost1 + cost2 * times) == 0\n- budget // (tokens + cost1 + cost2 * times) > 1\n\n#answer: budget // (tokens + cost1 + cost2 * times) - 1",
+    "count": 100
+  },
+  {
+    "id": 97,
+    "question_annotated": "{name1,ひまり}は、後輩の{name2,こはる}よりレジを打つ速さがちょうど{mult_txt,2倍}です。{name2,こはる}は1日に{n,50}人の客を対応します。2人が1週間のすべての日に働くとすると、1週間の合計処理数はいくつですか？\n\n#init:\n- name1, name2 = sample(names, 2)\n- mult_txt, mult_var = sample(multi_times)\n- $n = range(30, 100)\n\n#conditions:\n- is_int(n * mult_var)\n- is_int((n + n * mult_var) * 7)\n\n#answer: (n + n * mult_var) * 7",
+    "count": 100
+  },
+  {
+    "id": 98,
+    "question_annotated": "ある{disease,疫病}が{n0_txt,10}人に感染しています。毎日、感染している1人ひとりがさらに{r_txt,6}人に感染させます。{d_txt,3}日後、感染している人は全部で何人ですか？\n\n#init:\n- disease = sample(['ウイルス', '細菌', '感染症'])\n- n0_txt, n0_val = range_str(5, 21, 1, numbers)\n- r_txt, r_val = range_str(2, 8, 1, numbers)\n- d_txt, d_val = range_str(3, 5, 1, numbers)\n\n#conditions:\n- n0_val * (r_val + 1)**d_val < 20000\n\n#answer: n0_val * (r_val + 1)**d_val",
+    "count": 100
+  },
+  {
+    "id": 99,
+    "question_annotated": "{name,れお}が{d1,30}日間、1日に{n1,3}個の卵を食べ、その後{d2,30}日間、1日に{n2,5}個食べます。1パックに卵が12個入っていたすると、{d3,60}日間で何パック必要ですか？\n\n#init:\n- name = sample(names)\n- $n1 = range(2, 6)\n- $n2 = range(4, 8)\n- $d1 = range(20, 110, 2)\n- $d2 = range(20, 110, 2)\n- $d3 = range(50, 200, 5)\n\n#conditions:\n- d3 == d1 + d2\n- n2 > n1\n- divides(n1*d1 + n2*d2, 12)\n\n#answer: (n1*d1 + n2*d2) // 12",
     "count": 100
   }
 ]
