@@ -353,5 +353,55 @@
     "id": 70,
     "question_annotated": "ある{occupation,建設作業員}は毎月{w,4}週間、毎週{d,6}日働きます。もし1日あたり{cur,￥}{p,5000}の給料をもらうなら、1年間働くといくら稼ぎますか？\n\n#init:\n- occupation = sample([\"配管工さん\", \"電気工さん\", \"塗装工さん\", \"大工さん\", \"造園作業員\"])\n- cur = sample(currencies_sym)\n- $w = range(2, 5)\n- $d = range(4, 7)\n- $p = range(4000, 20000, 500)\n\n\n#answer: w * d * p * 12",
     "count": 100
+  },
+  {
+    "id": 71,
+    "question_annotated": "{name,あおと}は家畜に{food,干し草}を与えています。{animal1,ヤギ}は1頭につき{n1,5}{unit,キログラム}必要で、{animal2,ラマ}はその2倍より{n2,3}{unit,キログラム}少ない量が必要です。{animal1,ヤギ}が{k1,15}頭、{animal2,ラマ}が{k2,12}頭いるとすると、{name,あおと}は{food,干し草}を全部で何{unit,キログラム}必要ですか？\n\n#init:\n- name = sample(names)\n- food = sample([\"干し草\", \"穀物\", \"飼料\", \"餌\"])\n- animal1, animal2 = sample([\"ヤギ\", \"牛\", \"馬\", \"ロバ\", \"ラマ\", \"アルパカ\", \"豚\"], 2)\n- unit = sample([\"キログラム\", \"kg\"])\n- $n1 = range(3, 15)\n- $n2 = range(1, 10)\n- $k1 = range(10, 50)\n- $k2 = range(10, 50)\n\n#conditions:\n- 2*n1 - n2 > 0\n\n#answer: k1*n1 + k2*(2*n1 - n2)",
+    "count": 100
+  },
+  {
+    "id": 72,
+    "question_annotated": "{name,そら}には{n1,5}人の文通相手がいました。そのうち{n2,2}人とは文通をやめました。残りの人たちからはそれぞれ、1週間に{l,2}通の、1通あたり{p,5}ページの手紙が届きます。彼も同じように返事を書きます。1ページを書くのには{t,6}分かかります。彼は1週間に手紙を書くのに何時間使ってますか？\n\n#init:\n- name = sample(names_male)\n- $n1 = range(5, 15)\n- $n2 = range(1, 5)\n- $l = range(2, 5)\n- $p = range(5, 12)\n- $t = range(4, 15)\n\n#conditions:\n- n2 < n1\n- is_int(((n1 - n2) * l * p * t) / 60)\n\n#answer: ((n1 - n2) * l * p * t) // 60",
+    "count": 100
+  },
+  {
+    "id": 73,
+    "question_annotated": "{comet_name,ハレー}彗星は{orbit_period,75}年ごとに太陽の周りを公転します。{name,あさひ}の{relative,父親}は{relative_age,30}歳のときにその彗星を見ました。{name,あさひ}は、{relative,父親}がその彗星を見たときの年齢の{multiple_txt,3}倍の年齢になったときに、2回目にその彗星を見ました。{name,あさひ}がその彗星を初めて見たのは何歳のときですか？\n\n#init:\n- comet_name = sample(['ハレー', 'ヘール・ボップ', '百武', 'エンケ'])\n- name = sample(names)\n- relative = sample(['父親', '父', 'おじ', '祖父'])\n- $orbit_period = range(50, 101, 5)\n- $relative_age = range(20, 51)\n- multiple_txt, multiple_val = range_str(2, 6, 1, numbers)\n\n#conditions:\n- multiple_val * relative_age < 100\n- multiple_val * relative_age > orbit_period\n- is_int(multiple_val * relative_age - orbit_period)\n\n#answer: multiple_val * relative_age - orbit_period",
+    "count": 100
+  },
+  {
+    "id": 74,
+    "question_annotated": "ある{city,横浜}の小学校の{grade,4}年生は{total,96}人います。そのうち{num_girls,43}人は女子です。{day,金曜日}に、{grade,4}年生の女子{absent_girls,5}人と{grade,4}年生の男子{absent_boys,4}人が欠席しました。{day,金曜日}に学校に来てた{grade,4}年生の男子は何人でしたか？\n\n#init:\n- city = sample(cities)\n- grade = sample([\"1\", \"2\", \"3\", \"4\", \"5\"])\n- day = sample([\"月曜日\", \"火曜日\", \"水曜日\", \"木曜日\", \"金曜日\"])\n- $total = range(50, 200)\n- $num_girls = range(20, 100)\n- $absent_girls = range(2, 10)\n- $absent_boys = range(2, 10)\n\n#conditions:\n- num_girls < total\n- absent_girls < num_girls\n- absent_boys < (total - num_girls)\n\n#answer: total - num_girls - absent_boys",
+    "count": 100
+  },
+  {
+    "id": 75,
+    "question_annotated": "ある{place,お店}には{c1,赤}いボールが{n1,3}個、{c2,青}いボールが{n2,11}個、{c3,黄色}いボールが{n3,25}個あります。{c1,赤}いボールは1個{cur,￥}{p1,90}、{c2,青}いボールは1個{cur,￥}{p2,50}、{c3,黄色}いボールは1個{cur,￥}{p3,30}です。すべてのボールが売れた場合、{place,お店}は合計でいくら稼ぐことになりますか？\n\n#init:\n- place = sample([\"お店\", \"おもちゃ屋さん\", \"市場\", \"倉庫\"])\n- c1, c2, c3 = sample(colors, 3)\n- cur = sample(currencies_sym)\n- $n1 = range(3, 20)\n- $n2 = range(5, 30)\n- $n3 = range(15, 50)\n- $p1 = range(50, 150, 10)\n- $p2 = range(30, 100, 10)\n- $p3 = range(20, 80, 10)\n\n\n#answer: n1*p1 + n2*p2 + n3*p3",
+    "count": 100
+  },
+  {
+    "id": 76,
+    "question_annotated": "{name,しょうへい}は先週の{day,月曜日}に{fish,マグロ}を{n,3}匹釣りました。最初に釣った{fish,マグロ}の重さは{w1,56}{unit,キロ}、2匹目に釣った{fish,マグロ}の重さは{w2,46}{unit,キロ}、残りの{fish,マグロ}の重さは{w3,26}{unit,キロ}です。{fish,マグロ}1{unit,キロ}の値段が{cur,￥}{price,5000}なら、その{fish,マグロ}をすべて市場で売ったあと、{name,しょうへい}はいくら稼ぎますか？\n\n#init:\n- name = sample(names)\n- fish = sample([\"マグロ\", \"サーモン\", \"鯖\", \"鮭\", \"鯛\"])\n- day = sample(weekdays)\n- unit = sample([\"キロ\", \"kg\"])\n- cur = sample(currencies_sym)\n- $n = range(3, 8)\n- $w1 = range(40, 80)\n- $w2 = range(30, 60)\n- $w3 = range(20, 40)\n- $price = arange(2000, 25000, 1000)\n\n#conditions:\n- n > 2\n- is_int((w1 + w2) * price + (n-2) * w3 * price)\n\n#answer: int((w1 + w2) * price + (n-2)*w3*price)",
+    "count": 100
+  },
+  {
+    "id": 77,
+    "question_annotated": "{name,あんな}は{n,15}ページの{document,研究論文}を提出しなければなりません。すでに{frac,1/3}を書き終えています。あと何ページ書く必要がありますか？\n\n#init:\n- name = sample(names)\n- document = sample([\"小論文\", \"レポート\", \"論文\", \"学位論文\", \"課題\"])\n- $n = range(10, 325)\n- $frac = sample(fractions)\n\n#conditions:\n- is_int(n * frac)\n- n * frac < n\n\n#answer: n - int(n * frac)",
+    "count": 100
+  },
+  {
+    "id": 78,
+    "question_annotated": "普通の生徒の1日の授業時限数は{n1,6}時限ですが、{name,たいち}は{n2,2}コマの追加授業を受けなければなりません。各授業は{t,40}分です。たいちは週に{d,5}日授業に出ます。さらに、土曜日と日曜日には、それぞれ1週間の授業時間の{frac,1/16}にあたる時間を追加の学習時間として使ってます。たいちは1週間に何時間勉強しますか？\n\n#init:\n- name = sample(names)\n- $n1 = range(5, 10)\n- $n2 = range(1, 5)\n- $t = range(30, 61, 5)\n- $d = range(4, 7)\n- $frac = sample(fractions)\n\n#conditions:\n- is_int((n1 + n2) * t * d * frac)\n- is_int(((n1 + n2) * t * d + 2 * (n1 + n2) * t * d * frac) / 60)\n\n#answer: ((n1 + n2) * t * d + 2 * (n1 + n2) * t * d * frac) // 60",
+    "count": 100
+  },
+  {
+    "id": 79,
+    "question_annotated": "{name,しんいち}は、{n1,500}ピースのパズルの{frac_txt,半分}を完成させ、1時間後には別の{n2,500}ピースのパズルをさらに完成させました。その1時間以内には何ピースをはめましたか？\n\n#init:\n- name = sample(names)\n- frac_txt, frac_val = sample(fraction_alnum)\n- $n1 = range(100, 501)\n- $n2 = range(300, 1001)\n\n#conditions:\n- is_int(n1 * frac_val)\n\n#answer: int(n1 * frac_val) + n2",
+    "count": 100
+  },
+  {
+    "id": 80,
+    "question_annotated": "自動販売機で、{cur,￥}{price1,150}の{item1,ポカリスエット}と{cur,￥}{price2,180}の{item2,ほうじ茶}が売られています。{name,のりゆき}は{cur,￥}{total,5000}を使い、{item1,ポカリスエット}を{n1,3}本買ったところ、おつりとして所持金の{p,1}%が残りました。彼は{item2,ほうじ茶}を何本買いましたか？\n\n#init:\n- name = sample(names_male)\n- item1, item2 = sample(['ポカリスエット', '煎茶', 'ほうじ茶', '緑茶', '烏龍茶', '午後の紅茶'], 2)\n- cur = sample(currencies_sym)\n- $price1 = range(100, 200, 10)\n- $price2 = range(100, 200, 10)\n- $total = range(1000, 10000, 1000)\n- $n1 = range(1, 10)\n- $p = range(1, 10)\n\n#conditions:\n- price2 > price1\n- is_int(total * p / 100)\n- total * (100 - p) > n1 * price1\n- (total * (100 - p) - n1 * price1) % price2 == 0\n\n#answer: int((total * (100 - p) - n1 * price1) / price2)",
+    "count": 100
   }
 ]
