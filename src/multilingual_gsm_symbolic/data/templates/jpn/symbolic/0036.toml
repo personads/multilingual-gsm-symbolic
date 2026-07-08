@@ -10,6 +10,7 @@ id_shuffled = 36
 question_annotated = """{name,ひなた}は{shop,パン屋}に行き、色んなの{item,パン}を買いました。彼女は1箱あたり{cur,￥}{p1,680}の{item1,ドーナツ}を{n1,3}箱、1箱あたり{cur,￥}{p2,800}の{item2,カップケーキ}を{n2,2}箱、そして1箱あたり{cur,￥}{p3,550}の{item3,ミニチーズケーキ}を{n3,6}箱買いました。合計金額はいくらでしたか？
 
 #init:
+- cur = sample(currencies_sym)
 - name = sample(names_female)
 - shop = sample([\"パン屋\", \"洋菓子店\", \"ケーキ店\", \"カフェ\"])
 - item = sample([\"パン\", \"焼き菓子\", \"デザート\", \"おやつ\"])
