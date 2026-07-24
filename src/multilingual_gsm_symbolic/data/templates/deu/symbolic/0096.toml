@@ -1,4 +1,4 @@
-question = "Maries Vater sagte, dass sie 90 EUR für ihre Geburtstagsfeier eingeplant hatte. Sie möchte sicherstellen, dass sie und ihre Freunde alle eine Runde Minigolf spielen, 5 EUR in Arcade-Münzen bekommen und zweimal Go-Kart fahren können. Eine Runde Minigolf kostet 5 EUR. Go-Karts kosten 10 EUR pro Fahrt. Wie viele Freunde kann sie einladen?"
+question = "Maries Vater sagte, dass sie 90 EUR für ihre Geburtstagsfeier eingeplant hatte. Sie möchte sicherstellen, dass sie und ihre Freunde alle eine Runde Minigolf spielen, 5 EUR in Arcade-Münzen bekommen und zweimal Go-Kart fahren können. Eine Runde Minigolf kostet 5 EUR. Go-Kart fahren kostet 10 EUR pro Fahrt. Wie viele Freunde kann sie einladen?"
 
 answer = """
 Go-Kart kosten 20 EUR pro Person, weil 10*2=<<10*2=20>>20
@@ -13,7 +13,7 @@ id_orig = 357
 id_shuffled = 96
 
 question_annotated = """
-{name,Marie}s {parent,Vater} sagte, dass sie {budget,90} {cur,EUR} für ihre Geburtstagsfeier eingeplant hatte. Sie möchte sicherstellen, dass sie und ihre Freunde alle eine Runde {activity1,Minigolf} spielen, {tokens,5} {cur,EUR} in {activity2,Arcade}-Münzen bekommen und {times_txt,zweimal} {activity3,Go-Kart} fahren können. Eine Runde {activity1,Minigolf} kostet {cost1,5} {cur,EUR}. {activity3,Go-Kart} kosten {cost2,10} {cur,EUR} pro Fahrt. Wie viele Freunde kann sie einladen?
+{name,Marie}s {parent,Vater} sagte, dass sie {budget,90} {cur,EUR} für ihre Geburtstagsfeier eingeplant hatte. Sie möchte sicherstellen, dass sie und ihre Freunde alle eine Runde {activity1,Minigolf} spielen, {tokens,5} {cur,EUR} in {activity2,Arcade}-Münzen bekommen und {times_txt,zweimal} {activity3,Go-Kart} fahren können. Eine Runde {activity1,Minigolf} kostet {cost1,5} {cur,EUR}. {activity3,Go-Kart} fahren kostet {cost2,10} {cur,EUR} pro Fahrt. Wie viele Freunde kann sie einladen?
 
 #init:
 - name = sample(names_female)
@@ -43,7 +43,7 @@ Sie kann {budget // (tokens + cost1 + cost2 * times_val) - 1} Freunde einladen, 
 #### {budget // (tokens + cost1 + cost2 * times_val) - 1}
 """
 
-creation = "machine-translated from Danish using gpt-5.4, based on Danish templates; computationally validated"
+creation = "machine-translated from Danish using gpt-5.4, based on Danish templates; computationally validated; validated by 2 native speakers"
 
 language = "deu"
 
