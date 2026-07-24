@@ -33,7 +33,7 @@ Die Anzahl der {food}, die sie in einer {time_period} essen, ist {n1+n2+n3} * {7
 #### {(n1+n2+n3)*(7 if time_period == "Woche" else 30)}
 """
 
-creation = "machine-translated from Danish using gpt-5.4, based on Danish templates; computationally validated"
+creation = "machine-translated from Danish using gpt-5.4, based on Danish templates; computationally validated; validated by 2 native speakers"
 
 language = "deu"
 
