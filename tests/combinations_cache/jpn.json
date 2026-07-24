@@ -276,7 +276,7 @@
   },
   {
     "id": 55,
-    "question_annotated": "{name,まさこ}は{alphabets_txt,ひらがな}の基本文字を書く練習をしていて、覚えるまで何度も練習をすることにしました。まずは全ての文字を{n1,2}回書き、次にその{frac_txt,半分}の文字を{n2,1}回書き、そのあと、今まで書いた文字を全てもう一度練習しました。{name,まさこ}は全部で何文字書きましたか？\n\n#init:\n- name = sample(names)\n- alphabets_txt, alphabets_val = sample([(\"英語のアルファベット\", 26), (\"ひらがな\", 46), (\"カタカナ\", 46)])\n- n1 = range(2, 20)\n- n2 = range(1, 5)\n- frac_txt, frac_val = sample(fraction_alnum)\n\n#conditions:\n- is_int(alphabets_val * frac_val)\n\n#answer: 2 * (alphabets_val * n1 + alphabets_val * frac_val)",
+    "question_annotated": "{name,まさこ}は{alphabets_val,46}文字を含む{alphabets_txt,ひらがな}の基本文字を書く練習をしていて、覚えるまで何度も練習をすることにしました。まずは全ての文字を{n1,2}回書き、次にその{frac_txt,半分}の文字をさらに練習し、そのあと、今まで書いた文字を全てもう一度練習しました。{name,まさこ}は全部で何文字書きましたか？\n\n#init:\n- name = sample(names)\n- alphabets_txt, alphabets_val = sample([(\"英語のアルファベット\", 26), (\"ひらがな\", 46), (\"カタカナ\", 46), (\"ペルシア文字のアルファベット\", 32), (\"アラビア文字のアルファベット\", 28)])\n- n1 = range(2, 20)\n- frac_txt, frac_val = sample(fraction_alnum)\n\n#conditions:\n- is_int(alphabets_val * frac_val)\n\n#answer: 2 * (alphabets_val * n1 + alphabets_val * frac_val)",
     "count": 100
   },
   {
